@@ -22,9 +22,6 @@ function ContactHeader() {
                 ))
             }
         <div>
-                <Icon icon="weui:location-filled" width="24" height="24" />
-                <Icon icon="ri:phone-fill" width="24" height="24" />
-                <Icon icon="fa-regular:envelope-open" width="512" height="512" />
             </div>
         </div>
      );

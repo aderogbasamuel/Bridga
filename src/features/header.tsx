@@ -1,7 +1,11 @@
 import { Icon } from '@iconify/react'
 import logo from '../assets/BRIDGA.png'
 import { Link } from 'react-router-dom';
-function Header({setCartBar}) {
+type HeaderProps = {
+    setCartBar: (value: boolean) => void;
+};
+
+function Header({ setCartBar }: HeaderProps) {
     return ( 
         <div className='flex gap-6 p-4 px-18 h-[100px] items-center justify-between border-1 border-b-gray-300'>
             <div className='h-full'>
