@@ -9,7 +9,7 @@ function HomePage() {
             <div className='w-full aspect-square overflow-hidden h-screen'>
                 <img src={image1} alt="" className='w-full object-center' />
             </div>
-            <section className='px-10 py-10'>
+            <section className=' px-6 sm:px-6 md:px-24  py-10'>
                 <h3 className='heading text-[16px] uppercase font-bold mb-12'>Featured Categories</h3>
                 <div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-6'>
                     {[

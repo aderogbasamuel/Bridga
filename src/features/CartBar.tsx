@@ -15,7 +15,7 @@ function CartBar({
         ></div>
       )}
       <div
-        className={`fixed  transform transition-transform duration-300 z-50 w-1/4 bg-white flex flex-col top-0 right-0 h-full ${
+        className={`fixed  transform transition-transform duration-300 z-50 w-[300px] bg-white flex flex-col top-0 right-0 h-full ${
           cartBar ? "translate-x-0" : "translate-x-full"
         }`}
       >
