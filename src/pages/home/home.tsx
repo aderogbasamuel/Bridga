@@ -6,7 +6,7 @@ import ProductCard from '../../components/ProductCard';
 function HomePage() {
     return ( 
         <div>
-            <div className='w-full aspect-square overflow-hidden h-screen'>
+            <div className='w-full aspect-square overflow-hidden md:h-screen'>
                 <img src={image1} alt="" className='w-full object-center' />
             </div>
             <section className=' px-6 sm:px-6 md:px-24  py-10'>
