@@ -6,7 +6,7 @@ function CategoryCard({ image, title, products }: { image: string; title: string
     <div className="relative bg-red-900 aspect-[49/50] overflow-hidden">
       <img src={image} alt="" className="w-full h-full object-cover hover:scale-110 transition-normal duration-200" />
       <div className="absolute z-10 bottom-0 left-0 p-4 w-full">
-        <button className="bg-[#f8cdcd] p-5 w-full">
+        <button className="bg-[#f8cdcd] p-4 w-full">
           <p className="text-black text-[14px] font-bold uppercase">
             {title}
           </p>
