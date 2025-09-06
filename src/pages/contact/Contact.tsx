@@ -1,5 +1,5 @@
 import PageLayout from "../../components/PageLayout";
-import ContactHeader from "./components/header";
+import ContactHeader from "./components/header.tsx";
 function ContactPage() {
     return ( 
         <PageLayout title="Contact">
