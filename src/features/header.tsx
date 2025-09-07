@@ -5,7 +5,13 @@ type HeaderProps = {
     setCartBar: (value: boolean) => void;
 };
 
-function Header({ setCartBar }: HeaderProps) {
+function Header( {
+    setNavbar,
+    setCartBar,
+}: {
+    setCartBar: React.Dispatch<React.SetStateAction<boolean>>;
+  setNavbar: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
     return ( 
         <div>
             <div className='hidden md:flex gap-6 p-4 px-18 h-[100px] items-center justify-between border-1 border-b-gray-300'>
@@ -46,7 +52,7 @@ function Header({ setCartBar }: HeaderProps) {
             <div className='flex md:hidden flex-col gap-3 p-4 py-2 bg-[#220000]'>
             <div className='flex items-center justify-between'>
             <div className='h-[45px] flex items-center'>
-                <Icon icon="ion:menu" width="24" height="24" color='white'/>
+                <Icon icon="ion:menu" width="24" height="24" color='white' onClick={()=>setNavbar(true)}/>
                 <img src={logo} alt="Bridga logo"  className='h-full'/>
             </div>
             
