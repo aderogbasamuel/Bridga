@@ -3,9 +3,9 @@ import { Icon } from "@iconify/react";
 function Footer() {
   return (
     <div>
-    <div className="bg-[#3d0d0d] text-white grid grid-cols-4 p-18 gap-12">
+    <div className="bg-[#3d0d0d] text-white grid grid-cols-1 md:grid-cols-4 p-6 md:p-18 gap-12">
       <div className="flex flex-col gap-4">
-        <img src={logo} alt="Bridga logo" className="w-full pb-8" />
+        <img src={logo} alt="Bridga logo" className="w-[300px] md:w-full pb-8" />
         <div className="flex gap-3 text-[15px] items-center">
           <Icon icon="ion:call-outline" width="18" height="18" />
           <p> +23423456789</p>
@@ -96,7 +96,7 @@ function Footer() {
     )}
 
           </div>
-          <footer className="bg-[#220000] py-6 px-18 text-white">Bridga &copy; 2025 All Rights Reserved. Developer by <a href="Wajucreative.com">Waju Creative</a></footer>
+          <footer className="bg-[#220000] py-6 px-6  md:px-18 text-white text-center ">Bridga &copy; 2025 All Rights Reserved. Developed by <a href="Wajucreative.com">Waju Creative</a></footer>
           </div>
   );
 }

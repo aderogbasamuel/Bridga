@@ -43,9 +43,10 @@ function Header({ setCartBar }: HeaderProps) {
                 </div>
             </div>
         </div>
-           <div className='flex md:hidden flex-col gap-3 p-4 py-2 bg-[#220000]'>
+            <div className='flex md:hidden flex-col gap-3 p-4 py-2 bg-[#220000]'>
             <div className='flex items-center justify-between'>
-            <div className='h-[45px]'>
+            <div className='h-[45px] flex items-center'>
+                <Icon icon="ion:menu" width="24" height="24" color='white'/>
                 <img src={logo} alt="Bridga logo"  className='h-full'/>
             </div>
             
