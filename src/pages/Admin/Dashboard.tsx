@@ -24,7 +24,7 @@ const AdminDashboard = () => {
               key={to}
               to={to}
               className={`flex items-center gap-2 p-2 rounded-md hover:bg-gray-700 ${
-                location.pathname === to ? "bg-gray-700" : ""
+                location.pathname === to ? "bg-red-400" : ""
               }`}
             >
               <Icon size={18} /> {label}

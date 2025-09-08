@@ -15,12 +15,13 @@ import Signup from "./pages/signup.tsx";
 import AddProduct from "./pages/Admin/AddProducts.tsx";
 import ProductList from "./pages/Admin/ProductLIst.tsx";
 import Orders from "./pages/Admin/orders.tsx";
-
+import ProductDetail from "./components/ProductDetails.tsx";
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Navigate to="/home" replace />} />
+        <Route path="/product/:slug" element={<ProductDetail />} />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
 

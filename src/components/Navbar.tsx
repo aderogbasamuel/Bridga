@@ -28,32 +28,42 @@ function Nvabar({
                     }`}
                   >
                     <div className="bg-black text-center py-3 px-2">
-                      <h2 className="uppercase text-white font-bold text-[18px] flex items-center text-center relative justify-center">
-                        <button onClick={() => setNavbar(false)}>
+                      <h2 className="capitalize text-white font-semibold text-[18px] flex items-center text-center relative justify-between">
+                        
+                <p><Link to="/login">Login</Link>/<Link to="/signup">Signup</Link></p>
+                <button onClick={() => setNavbar(false)}>
                           <Icon
-                            icon="tabler:chevron-left"
+                            icon="tabler:chevron-right"
                             width="24"
                             height="24"
-                            className="absolute z-20 left-0 top-0"
+                            className=""
                           />
-                        </button>{" "}
-                        MY cart
+                        </button>
                       </h2>
-                    </div>
-                    <div className="h-full">
-                      <h1>hello</h1>
-                    </div>
-                    <div className="flex flex-col justify-end p-4 border-t-2 border-[#555] gap-3">
-                      <p className="text-[18px] font-bold text-[#555] flex uppercase justify-between">
-                        subtotal: <span>70,000.00</span>
-                      </p>
-                      <button className="uppercase bg-black text-white text-[15px] py-3 w-full font-bold">
-                        View Cart
-                      </button>
-                      <button className="uppercase bg-black text-white text-[15px] py-3 w-full font-bold">
-                        Checkout
-                      </button>
-                    </div>
+            </div>
+            <h2 className="text-center text-black font-[750] text-[15px] py-4">MENU</h2>
+                    <div className="px-4 py-4 flex flex-col gap-8 font-[750] text-gray-800 text-[13px] uppercase">
+              {[
+                {
+                  path: "/home",
+                  title:"Home",
+                },
+                {
+                  path: "/shop",
+                  title: "shop"
+                },
+                {
+                  path: "/checkout",
+                  title: "checkout"
+                },
+                {
+                  path: "/contact",
+                  title: "contact"
+                }
+              ].map((link, index) => (
+                <Link to={link.path} key={index} onClick={()=>setNavbar(false)}>{ link.title}</Link>
+              ))}
+            </div>
                   </div>
                 </div>
         </>

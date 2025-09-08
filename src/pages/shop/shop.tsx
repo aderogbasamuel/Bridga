@@ -22,16 +22,17 @@ const [products, setProducts] = useState<any[]>([]);
   if (loading) return <p>Loading...</p>;
   return (
     <>
-          <PageLayout title="Shop" >
+      <PageLayout title="Shop" >
+        <div className=" px-4 sm:px-4 md:px-24  py-10">
               <div className="px-20 text-[#555]">
                   
-              <p className="text-[12px] ">Showing 1–24 Products of 36 Products</p>
+              <p className="text-[12px]">Showing 1–24 Products of 36 Products</p>
               </div>
         <ProductsList
           
           products={products} 
           
-        />
+        /></div>
       </PageLayout>
     </>
   );

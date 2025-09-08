@@ -4,7 +4,7 @@ import image3 from "../../../assets/sam-loyd-qy27JnsH9sU-unsplash.jpg";
 import ProductItemCard from "../../../components/ProductItemCard";
 function ProductsList({products}: {products: any[]  }) {
     return (
-      <div className="grid grid-cols-4 mt-12 px-18">
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           
       {/* [
         {
@@ -38,7 +38,10 @@ function ProductsList({products}: {products: any[]  }) {
             image={product.imageUrl}
             title={product.name}
             price={product.price}
-                  category={product.category}
+            category={product.category}
+                slug={product.slug}
+                id={product.id}
+                product={product}
           />
         </div>
       ))}

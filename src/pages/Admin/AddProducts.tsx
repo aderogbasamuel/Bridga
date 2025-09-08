@@ -164,7 +164,12 @@ import { useState } from "react";
 import { Input } from "../../components/ui/input";
 import { Button } from "../../components/ui/button";
 import { Progress } from "../../components/ui/progress";
-import { Card, CardHeader, CardContent, CardTitle } from "../../components/ui/card";
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  CardTitle,
+} from "../../components/ui/card";
 import { uploadToCloudinary } from "../../services/cloudinarySearvices";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../services/firebase"; // Firestore instance
@@ -179,8 +184,15 @@ const AddProducts = () => {
     description: "",
     imageUrl: "",
   });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const generateSlug = (name: string) => {
+    return name
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-") // replace spaces & symbols with -
+      .replace(/(^-|-$)+/g, ""); // remove leading/trailing dashes
+  };
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setProduct({ ...product, [e.target.name]: e.target.value });
   };
 
@@ -206,7 +218,12 @@ const AddProducts = () => {
   };
 
   const handleSubmit = async () => {
-    if (!product.name || !product.price || !product.description || !product.imageUrl) {
+    if (
+      !product.name ||
+      !product.price ||
+      !product.description ||
+      !product.imageUrl
+    ) {
       alert("Fill all fields and upload an image");
       return;
     }
@@ -215,6 +232,7 @@ const AddProducts = () => {
       await addDoc(collection(db, "products"), {
         ...product,
         price: parseFloat(product.price),
+        slug: generateSlug(product.name),
         createdAt: new Date(),
       });
       alert("Product added successfully!");
@@ -261,7 +279,11 @@ const AddProducts = () => {
         </Button>
 
         {product.imageUrl && (
-          <img src={product.imageUrl} alt="Uploaded" className="mt-4 w-full rounded" />
+          <img
+            src={product.imageUrl}
+            alt="Uploaded"
+            className="mt-4 w-full rounded"
+          />
         )}
 
         <Button onClick={handleSubmit} className="bg-blue-600 text-white">
