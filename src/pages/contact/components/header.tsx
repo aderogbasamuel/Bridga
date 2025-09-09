@@ -16,8 +16,8 @@ function ContactHeader() {
                     text: "info@bridga.com"
                 }].map((item, index) => (
                     <div key={index} className='flex items-center gap-2 flex-col p-4 text-center'>
-                        <Icon icon={item.iconName} width="100" height="100" />
-                        <p className='text-gray-600 text-[14px]'>{item.text}</p>
+                        <Icon icon={item.iconName} width="50" height="50" />
+                        <p className='text-black text-[14px]'>{item.text}</p>
                     </div>
                 ))
             }

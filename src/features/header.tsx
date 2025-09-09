@@ -4,14 +4,16 @@ import { Link } from 'react-router-dom';
 type HeaderProps = {
     setCartBar: (value: boolean) => void;
 };
+import { useWishlist } from "../hooks/useWishlist";
 
 function Header( {
     setNavbar,
     setCartBar,
 }: {
     setCartBar: React.Dispatch<React.SetStateAction<boolean>>;
-  setNavbar: React.Dispatch<React.SetStateAction<boolean>>;
+    setNavbar: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+    const { wishlist, user } = useWishlist();
     return ( 
         <div>
             <div className='hidden md:flex gap-6 p-4 px-18 h-[100px] items-center justify-between border-1 border-b-gray-300'>
@@ -34,7 +36,7 @@ function Header( {
                 <Link to={"/wishlist"} className='relative'>
                     <Icon icon="si:heart-line" width="30" height="30" />
                     <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#220000] text-[10px] font-medium text-white">
-                    3
+                   {wishlist.length}
                   </span>
                 </Link>
                  <div className='relative' onClick={()=>setCartBar(true)}>
@@ -63,7 +65,7 @@ function Header( {
                 <Link to={"/wishlist"} className='relative text-white'>
                     <Icon icon="si:heart-line" width="30" height="30" />
                     <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#fff] text-[10px] font-medium text-black">
-                    3
+                    {wishlist.length}
                   </span>
                 </Link>
                  <div className='relative text-white' onClick={()=>setCartBar(true)}>
@@ -74,7 +76,7 @@ function Header( {
                 </div>
                 </div>
                 </div>
-                <div className='w-full flex bg-white pe-3'>
+                <div className='w-full flex bg-white p-1 pe-3'>
                 <input type="text" placeholder='Search for products, categories' className='text-[15px] p-0 ps-6 placeholder:text-gray-500 border-1 border-gray-200 w-full'/>
                 <div className='bg-[#fff] text-black h-stretch aspect-square w-auto flex items-center justify-center px-2'>
                     <Icon icon="tabler:search" height="24"  width="24"/>

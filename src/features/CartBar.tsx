@@ -19,7 +19,7 @@ function CartBar({
           cartBar ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="bg-black text-center py-3 px-2">
+        <div className="bg-[#220000] text-center py-3 px-2">
           <h2 className="uppercase text-white font-bold text-[18px] flex items-center text-center relative justify-center">
             <button onClick={() => setCartBar(false)}>
               <Icon
@@ -39,10 +39,10 @@ function CartBar({
           <p className="text-[18px] font-bold text-[#555] flex uppercase justify-between">
             subtotal: <span>70,000.00</span>
           </p>
-          <button className="uppercase bg-black text-white text-[15px] py-3 w-full font-bold">
+          <button className="uppercase bg-[#220000] text-white text-[15px] py-3 w-full font-bold">
             View Cart
           </button>
-          <button className="uppercase bg-black text-white text-[15px] py-3 w-full font-bold">
+          <button className="uppercase bg-[#220000] text-white text-[15px] py-3 w-full font-bold">
             Checkout
           </button>
         </div>

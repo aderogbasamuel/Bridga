@@ -4,7 +4,7 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 function CheckoutPage() {
   return (
     <PaymentPageLayout title="Checkout">
-      <div className="p-18 grid grid-cols-3 gap-10">
+      <div className="p-6 md:p-18 grid grid-cols-1 sm:grid-cols-3 gap-10">
         <div className="col-span-2">
           <form action="" className="">
             <h3 className="text-[17px] text-[#333] font-bold">
@@ -104,6 +104,21 @@ function CheckoutPage() {
                           <button className="bg-black p-4 text-white  uppercase font-bold text-[14px] w-full">Place Order</button>
                       </div>
           </form>
+        </div>
+        <div className="border ">
+          <p>Order Summary</p>
+          <div>
+          <div>
+            <img src="" alt="" />
+            <div>
+              <p>Black Fluffy Pajajmas</p>
+              <div>#35,000</div>
+              <p>size: 12</p>
+            </div>
+            </div>
+         
+            <p>70,000</p> </div>
+          
         </div>
       </div>
     </PaymentPageLayout>

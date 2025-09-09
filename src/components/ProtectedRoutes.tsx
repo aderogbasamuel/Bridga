@@ -18,7 +18,7 @@ export default function ProtectedRoute({ children, role }: ProtectedRouteProps) 
 
   if (role && userRole !== role) {
     // logged in but not the right role
-    return <Navigate to="/home" replace />;
+    return <Navigate to="/" replace />;
   }
 
   return <>{children}</>;
