@@ -13,7 +13,7 @@ export function useWishlistCount() {
       return
     }
 
-    const wishlistRef = collection(db, "wishlists", user.uid, "items")
+    const wishlistRef = collection(db, "users", user.uid, "wishlist")
 
     // Realtime listener
     const unsubscribe = onSnapshot(wishlistRef, (snapshot) => {
