@@ -21,7 +21,6 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         {/* <Route path="/" element={<Navigate to="/home" replace />} /> */}
-        <Route path="/product/:slug" element={<ProductDetail />} />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
 
@@ -41,6 +40,7 @@ export default function App() {
 
         {/* 🔹 Public + User Routes */}
         <Route element={<AppLayout />}>
+          <Route path="/product/:slug" element={<ProductDetail />} />
           <Route path="/" element={<HomePage />} />
           <Route path="shop" element={<Shop />} />
           <Route path="/shop/:slug" element={<Shop />} />
