@@ -43,6 +43,7 @@ export default function App() {
         <Route element={<AppLayout />}>
           <Route path="/" element={<HomePage />} />
           <Route path="shop" element={<Shop />} />
+          <Route path="/shop/:slug" element={<Shop />} />
           <Route
             path="checkout"
             element={

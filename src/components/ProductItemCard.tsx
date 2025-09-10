@@ -36,10 +36,10 @@ function ProductItemCard({
         }}
         >
           {isWished ? (
-            <Icon icon="gridicons:heart-outline" width="24" height="24" />
+            <Icon icon="gridicons:heart" width="24" height="24" />
           ):
           (
-          <Icon icon="gridicons:heart" width="24" height="24" color="#3d0d0d" />
+          <Icon icon="gridicons:heart-outline" width="24" height="24" color="#3d0d0d" />
           )}
               </button>
         <img src={image} alt="" className="w-full h-full object-cover" />

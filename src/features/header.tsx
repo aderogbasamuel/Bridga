@@ -1,10 +1,12 @@
 import { Icon } from '@iconify/react'
 import logo from '../assets/BRIDGA.png'
-import { Link } from 'react-router-dom';
 type HeaderProps = {
     setCartBar: (value: boolean) => void;
 };
 import { useWishlist } from "../hooks/useWishlist";
+import { useWishlistCount } from "../hooks/wishListCount"
+import { useAuth } from "../context/AuthContext"
+import { Link, useNavigate } from "react-router-dom"
 
 function Header( {
     setNavbar,
@@ -13,7 +15,17 @@ function Header( {
     setCartBar: React.Dispatch<React.SetStateAction<boolean>>;
     setNavbar: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-    const { wishlist, user } = useWishlist();
+    const wishlistCount = useWishlistCount()
+  const { user } = useAuth()
+  const navigate = useNavigate()
+
+  const handleWishlistClick = () => {
+    if (!user) {
+      navigate("/login") // force login first
+    } else {
+      navigate("/wishlist") // go to wishlist page
+    }
+  }
     return ( 
         <div>
             <div className='hidden md:flex gap-6 p-4 px-18 h-[100px] items-center justify-between border-1 border-b-gray-300'>
@@ -33,12 +45,12 @@ function Header( {
                 <div>
                     <Icon icon="famicons:person-outline" width="30" height="30" />
                 </div>
-                <Link to={"/wishlist"} className='relative'>
+                <button onClick={handleWishlistClick} className='relative'>
                     <Icon icon="si:heart-line" width="30" height="30" />
                     <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#220000] text-[10px] font-medium text-white">
-                   {wishlist.length}
+                   {wishlistCount}
                   </span>
-                </Link>
+                </button>
                  <div className='relative' onClick={()=>setCartBar(true)}>
                 <Icon icon="heroicons:shopping-bag" width="30" height="30" />
                     <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#220000] text-[10px] font-medium text-white">
@@ -65,7 +77,7 @@ function Header( {
                 <Link to={"/wishlist"} className='relative text-white'>
                     <Icon icon="si:heart-line" width="30" height="30" />
                     <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#fff] text-[10px] font-medium text-black">
-                    {wishlist.length}
+                    {wishlistCount}
                   </span>
                 </Link>
                  <div className='relative text-white' onClick={()=>setCartBar(true)}>

@@ -159,6 +159,149 @@
 //   );
 // };
 
+// // export default AddProducts;
+
+
+
+
+
+
+
+
+// import { useState } from "react";
+// import { Input } from "../../components/ui/input";
+// import { Button } from "../../components/ui/button";
+// import { Progress } from "../../components/ui/progress";
+// import {
+//   Card,
+//   CardHeader,
+//   CardContent,
+//   CardTitle,
+// } from "../../components/ui/card";
+// import { uploadToCloudinary } from "../../services/cloudinarySearvices";
+// import { collection, addDoc } from "firebase/firestore";
+// import { db } from "../../services/firebase"; // Firestore instance
+
+// const AddProducts = () => {
+//   const [file, setFile] = useState<File | null>(null);
+//   const [progress, setProgress] = useState(0);
+//   const [loading, setLoading] = useState(false);
+//   const [product, setProduct] = useState({
+//     name: "",
+//     price: "",
+//     description: "",
+//     imageUrl: "",
+//   });
+//   const generateSlug = (name: string) => {
+//     return name
+//       .toLowerCase()
+//       .replace(/[^a-z0-9]+/g, "-") // replace spaces & symbols with -
+//       .replace(/(^-|-$)+/g, ""); // remove leading/trailing dashes
+//   };
+//   const handleChange = (
+//     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+//   ) => {
+//     setProduct({ ...product, [e.target.name]: e.target.value });
+//   };
+
+//   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+//     if (!e.target.files) return;
+//     setFile(e.target.files[0]);
+//     setProgress(0);
+//   };
+
+//   const handleUpload = async () => {
+//     if (!file) return;
+//     setLoading(true);
+//     try {
+//       const url = await uploadToCloudinary(file);
+//       setProduct((prev) => ({ ...prev, imageUrl: url }));
+//       setProgress(100);
+//     } catch (err) {
+//       console.error(err);
+//       alert("Upload failed");
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   const handleSubmit = async () => {
+//     if (
+//       !product.name ||
+//       !product.price ||
+//       !product.description ||
+//       !product.imageUrl
+//     ) {
+//       alert("Fill all fields and upload an image");
+//       return;
+//     }
+
+//     try {
+//       await addDoc(collection(db, "products"), {
+//         ...product,
+//         price: parseFloat(product.price),
+//         slug: generateSlug(product.name),
+//         createdAt: new Date(),
+//       });
+//       alert("Product added successfully!");
+//       setProduct({ name: "", price: "", description: "", imageUrl: "" });
+//       setFile(null);
+//       setProgress(0);
+//     } catch (error) {
+//       console.error("Error adding product:", error);
+//       alert("Failed to add product");
+//     }
+//   };
+
+//   return (
+//     <Card className="bg-white shadow-lg max-w-lg mx-auto mt-6 p-4">
+//       <CardHeader>
+//         <CardTitle>Add New Product</CardTitle>
+//       </CardHeader>
+//       <CardContent className="flex flex-col gap-4">
+//         <Input
+//           name="name"
+//           placeholder="Product Name"
+//           value={product.name}
+//           onChange={handleChange}
+//         />
+//         <Input
+//           name="price"
+//           placeholder="Price"
+//           type="number"
+//           value={product.price}
+//           onChange={handleChange}
+//         />
+//         <textarea
+//           name="description"
+//           placeholder="Product Description"
+//           className="border rounded p-2"
+//           value={product.description}
+//           onChange={handleChange}
+//         />
+
+//         <Input type="file" accept="image/*" onChange={handleFileChange} />
+//         {progress > 0 && <Progress value={progress} className="w-full" />}
+//         <Button onClick={handleUpload} disabled={!file || loading}>
+//           {loading ? "Uploading..." : "Upload Image"}
+//         </Button>
+
+//         {product.imageUrl && (
+//           <img
+//             src={product.imageUrl}
+//             alt="Uploaded"
+//             className="mt-4 w-full rounded"
+//           />
+//         )}
+
+//         <Button onClick={handleSubmit} className="bg-blue-600 text-white">
+//           Save Product
+//         </Button>
+//       </CardContent>
+//     </Card>
+//   );
+// };
+
 // export default AddProducts;
 import { useState } from "react";
 import { Input } from "../../components/ui/input";
@@ -170,10 +313,13 @@ import {
   CardContent,
   CardTitle,
 } from "../../components/ui/card";
-import { uploadToCloudinary } from "../../services/cloudinarySearvices";
-import { collection, addDoc } from "firebase/firestore";
-import { db } from "../../services/firebase"; // Firestore instance
+import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "../../components/ui/select";
 
+import { uploadToCloudinary } from "../../services/cloudinarySearvices";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "../../services/firebase"; 
+// import { categories } from "../../data/categories"; // 🔥 fixed categories
+import { categories } from "@/data/cateogries";
 const AddProducts = () => {
   const [file, setFile] = useState<File | null>(null);
   const [progress, setProgress] = useState(0);
@@ -183,13 +329,16 @@ const AddProducts = () => {
     price: "",
     description: "",
     imageUrl: "",
+    category: "", // 🔥 new field
   });
+
   const generateSlug = (name: string) => {
     return name
       .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-") // replace spaces & symbols with -
-      .replace(/(^-|-$)+/g, ""); // remove leading/trailing dashes
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)+/g, "");
   };
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -222,9 +371,10 @@ const AddProducts = () => {
       !product.name ||
       !product.price ||
       !product.description ||
-      !product.imageUrl
+      !product.imageUrl ||
+      !product.category
     ) {
-      alert("Fill all fields and upload an image");
+      alert("Fill all fields, upload an image, and select a category");
       return;
     }
 
@@ -233,10 +383,16 @@ const AddProducts = () => {
         ...product,
         price: parseFloat(product.price),
         slug: generateSlug(product.name),
-        createdAt: new Date(),
+        createdAt: serverTimestamp(),
       });
       alert("Product added successfully!");
-      setProduct({ name: "", price: "", description: "", imageUrl: "" });
+      setProduct({
+        name: "",
+        price: "",
+        description: "",
+        imageUrl: "",
+        category: "",
+      });
       setFile(null);
       setProgress(0);
     } catch (error) {
@@ -271,6 +427,23 @@ const AddProducts = () => {
           value={product.description}
           onChange={handleChange}
         />
+
+        {/* 🔥 Category Selector */}
+        <Select
+          value={product.category}
+          onValueChange={(value) => setProduct({ ...product, category: value })}
+        >
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder="Select Category" />
+          </SelectTrigger>
+          <SelectContent>
+            {categories.map((cat) => (
+              <SelectItem key={cat.slug} value={cat.slug}>
+                {cat.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
 
         <Input type="file" accept="image/*" onChange={handleFileChange} />
         {progress > 0 && <Progress value={progress} className="w-full" />}
