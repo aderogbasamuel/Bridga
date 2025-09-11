@@ -6,7 +6,7 @@ import Shop from "./pages/shop/shop.tsx";
 import CheckoutPage from "./pages/payments/Checkout.tsx";
 import Wishlist from "./pages/wishlist/Wishlist.tsx";
 import ContactPage from "./pages/contact/Contact.tsx";
-import AdminDashboard from "./pages/Admin/Dashboard.tsx";
+import AdminDashboard from "./pages/Admin/AdminDashboard.tsx";
 import ProtectedRoute from "./components/ProtectedRoutes.tsx";
 import Login from "./pages/login.tsx";
 import Signup from "./pages/signup.tsx";
@@ -14,8 +14,9 @@ import Signup from "./pages/signup.tsx";
 // Admin pages
 import AddProduct from "./pages/Admin/AddProducts.tsx";
 import ProductList from "./pages/Admin/ProductLIst.tsx";
-import Orders from "./pages/Admin/orders.tsx";
+import OrdersPage from "./pages/Admin/orders.tsx";
 import ProductDetail from "./components/ProductDetails.tsx";
+import AdminLayout from "./pages/Admin/AdminLayout.tsx";
 export default function App() {
   return (
     <BrowserRouter>
@@ -29,13 +30,14 @@ export default function App() {
           path="/admin"
           element={
             <ProtectedRoute role="admin">
-              <AdminDashboard />
+              <AdminLayout />
             </ProtectedRoute>
           }
         >
+          <Route index element={<AdminDashboard/>}/>
           <Route path="add-product" element={<AddProduct />} />
           <Route path="products" element={<ProductList />} />
-          <Route path="orders" element={<Orders />} />
+          <Route path="orders" element={<OrdersPage />} />
         </Route>
 
         {/* 🔹 Public + User Routes */}

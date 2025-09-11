@@ -5,7 +5,7 @@ import { useWishlist } from "../../hooks/useWishlist";
 function Wishlist() {
   const { wishlist, user, toggleWishlist } = useWishlist();
   return (
-    <PageLayout title="Wishlist">
+    <PageLayout title="Wishlist" subTitle="">
       <div className="p-18">
         {wishlist.length === 0 ? (
           <p>No items in wishlist</p>

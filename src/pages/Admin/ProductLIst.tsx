@@ -1,70 +1,107 @@
-import { useEffect, useState } from "react";
-import { db } from "../../services/firebase";
-import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { useEffect, useState } from "react"
+import { db } from "@/services/firebase"
+import { collection, getDocs, deleteDoc, doc } from "firebase/firestore"
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/card"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+import { Button } from "@/components/ui/button"
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
+import { useNavigate } from "react-router-dom"
 
 const ProductList = () => {
-  const [products, setProducts] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [products, setProducts] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
+  const navigate = useNavigate()
 
   const fetchProducts = async () => {
-    const querySnapshot = await getDocs(collection(db, "products"));
-    const items = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    setProducts(items);
-    setLoading(false);
-  };
+    const querySnapshot = await getDocs(collection(db, "products"))
+    const items = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }))
+    setProducts(items)
+    setLoading(false)
+  }
 
   const handleDelete = async (id: string) => {
-    await deleteDoc(doc(db, "products", id));
-    setProducts(products.filter(p => p.id !== id));
-  };
+    if (!confirm("Are you sure you want to delete this product?")) return
+    await deleteDoc(doc(db, "products", id))
+    setProducts(products.filter((p) => p.id !== id))
+  }
 
   useEffect(() => {
-    fetchProducts();
-  }, []);
+    fetchProducts()
+  }, [])
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p>Loading...</p>
 
   return (
-    <div>
-      <h2 className="text-xl font-bold mb-4">All Automobiles</h2>
-      <table className="w-full bg-white shadow rounded">
-        <thead>
-          <tr className="bg-gray-200 text-left">
-
-            <th className="p-2">Image</th>
-            <th className="p-2">Name</th>
-            <th className="p-2">Category</th>
-            <th className="p-2">Price</th>
-            <th className="p-2">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map((p) => (
-            <tr key={p.id} className="border-b">
-              <td className="p-2 w-[50px]"><img src={p.imageUrl} alt="" /></td>
-              <td className="p-2">{p.name}</td>
-              <td className="p-2">{p.category}</td>
-              <td className="p-2">₦{p.price.toLocaleString()}</td>
-              <td className="p-2 space-x-2">
-                <button
-                  onClick={() => handleDelete(p.id)}
-                  className="bg-red-600 text-white px-2 py-1 rounded"
-                >
-                  Delete
-                </button>
-                <a
-                  href={`/admin/edit/${p.id}`}
-                  className="bg-blue-600 text-white px-2 py-1 rounded"
-                >
-                  Edit
-                </a>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className="p-6">
+      <Card className="shadow-sm">
+        <CardHeader className="flex items-center justify-between">
+          <CardTitle>All Products</CardTitle>
+          <Button onClick={() => navigate("/admin/add-product")}>
+            + Add Product
+          </Button>
+        </CardHeader>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Image</TableHead>
+                <TableHead>Name</TableHead>
+                <TableHead>Category</TableHead>
+                <TableHead>Price</TableHead>
+                <TableHead>Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {products.map((p) => (
+                <TableRow key={p.id}>
+                  <TableCell>
+                    <Avatar className="h-12 w-12">
+                      <AvatarImage src={p.imageUrl} alt={p.name} />
+                      <AvatarFallback>{p.name.slice(0, 2)}</AvatarFallback>
+                    </Avatar>
+                  </TableCell>
+                  <TableCell className="font-medium">{p.name}</TableCell>
+                  <TableCell>{p.category}</TableCell>
+                  <TableCell>₦{Number(p.price).toLocaleString()}</TableCell>
+                  <TableCell className="flex gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => navigate(`/admin/edit/${p.id}`)}
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      variant="destructive"
+                      size="sm"
+                      onClick={() => handleDelete(p.id)}
+                    >
+                      Delete
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
     </div>
-  );
-};
+  )
+}
 
-export default ProductList;
+export default ProductList
