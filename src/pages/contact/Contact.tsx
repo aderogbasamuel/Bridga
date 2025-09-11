@@ -2,7 +2,7 @@ import PageLayout from "../../components/PageLayout";
 import ContactHeader from "./components/header.tsx";
 function ContactPage() {
   return (
-    <PageLayout title="Contact">
+    <PageLayout title="Contact" subTitle="">
       <ContactHeader />
       <form action="">
         <div className="grid gird-cols-1 md:grid-cols-2 gap-12 p-6 md:p-12">
