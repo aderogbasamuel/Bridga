@@ -6,5 +6,5 @@ export const notify = {
   error: (msg: string) => toast.error(msg),
   info: (msg: string) => toast(msg),
   loading: (msg: string) => toast.loading(msg),
-  dismiss: (id?: string | number) => toast.dismiss(id),
+  dismiss: (id?: string | number) => toast.dismiss(id !== undefined ? String(id) : undefined),
 };
