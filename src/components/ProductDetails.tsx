@@ -2,6 +2,10 @@ import { useParams } from "react-router-dom";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../services/firebase";
 import { useEffect, useState } from "react";
+import { addToCart } from "@/services/addToCart"
+import { useAuth } from "@/context/AuthContext";
+import { notify } from "@/services/notify"
+
 
 const ProductDetail = () => {
   const [selection,setSelection]=useState("Description")
@@ -21,6 +25,17 @@ const ProductDetail = () => {
     };
     fetchProduct();
   }, [slug]);
+const { user } = useAuth()
+
+  const handleAddToCart = async () => {
+    if (!user) {
+      notify.error("Please log in first")
+      return
+    }
+    await addToCart(user.uid, product)
+    // alert("Added to cart ✅")
+    notify.success("Added to cart")
+  }
 
   if (!product) return <p>Loading...</p>;
 
@@ -41,7 +56,7 @@ const ProductDetail = () => {
             <div className=" border p-2 w-10 h-10">1</div>
           <button className="border rounded-full p-2 w-10 h-10">+</button>
           </div>
-          <button className="bg-[#222222] text-white font-bold px-3 py-2 uppercase text-[14px] ">Add to cart</button>
+          <button className="bg-[#222222] text-white font-bold px-3 py-2 uppercase text-[14px] " onClick={handleAddToCart}>Add to cart</button>
         </div>
         <div className="flex gap-3 py-3">
           <button className="font-medium text-[14px]">Add to wishlist</button>

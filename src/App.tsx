@@ -10,15 +10,17 @@ import AdminDashboard from "./pages/Admin/AdminDashboard.tsx";
 import ProtectedRoute from "./components/ProtectedRoutes.tsx";
 import Login from "./pages/login.tsx";
 import Signup from "./pages/signup.tsx";
-
+import CartPage from "./pages/Cart.tsx/CartPage.tsx";
 // Admin pages
 import AddProduct from "./pages/Admin/AddProducts.tsx";
 import ProductList from "./pages/Admin/ProductLIst.tsx";
 import OrdersPage from "./pages/Admin/orders.tsx";
 import ProductDetail from "./components/ProductDetails.tsx";
 import AdminLayout from "./pages/Admin/AdminLayout.tsx";
+import { Toaster } from "react-hot-toast";
 export default function App() {
   return (
+    <>
     <BrowserRouter>
       <Routes>
         {/* <Route path="/" element={<Navigate to="/home" replace />} /> */}
@@ -45,7 +47,8 @@ export default function App() {
           <Route path="/product/:slug" element={<ProductDetail />} />
           <Route path="/" element={<HomePage />} />
           <Route path="shop" element={<Shop />} />
-          <Route path="/shop/:slug" element={<Shop />} />
+            <Route path="/shop/:slug" element={<Shop />} />
+            <Route path="cartpage" element={<CartPage/>}/>
           <Route
             path="checkout"
             element={
@@ -65,6 +68,25 @@ export default function App() {
           <Route path="contact" element={<ContactPage />} />
         </Route>
       </Routes>
-    </BrowserRouter>
+      </BrowserRouter>
+ <Toaster
+        position="top-right"
+        toastOptions={{
+          // default options
+          duration: 4000,
+          style: {
+            borderRadius: "8px",
+            padding: "12px 16px",
+            fontWeight: 500,
+          },
+          success: {
+            style: { background: "#16a34a", color: "#fff" },
+          },
+          error: {
+            style: { background: "#dc2626", color: "#fff" },
+          },
+        }}
+      />
+    </>
   );
 }

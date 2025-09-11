@@ -72,9 +72,9 @@ const Signup = () => {
             <div className="flex items-center justify-center h-screen">
                   <div className=" border-gray-300 border-1 flex w-full max-w-[650px] flex-col sm:flex-row">
                     <div className="bg-black text-white p-8 flex flex-col w-full sm:w-[40%]">
-                      <h2 className="font-bold text-[26px]">Login</h2>
+                      <h2 className="font-bold text-[26px]">Signup</h2>
                       <p className="text-[14px] mt-3">
-                        Get access to your Orders, Wishlist and Recommendations.
+                        Join Bridga to manage your projects, collaborate with your team, and unlock exclusive features.
                       </p>
                     </div>
             
@@ -131,8 +131,8 @@ const Signup = () => {
                         {error && <p className="text-red-500">{error}</p>}
                         
                               </form>
-                              <button onClick={()=>navigate("/signup")} className="bg-white border border-gray-300 text-black py-2 text-[14px] font-semibold uppercase">
-                          New to Bridga? Signin
+                              <button onClick={()=>navigate("/login")} className="bg-white border border-gray-300 text-black py-2 text-[14px] font-semibold uppercase">
+                          Have an Account? Login
                         </button>
                     </div>
                   </div>

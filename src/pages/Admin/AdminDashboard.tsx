@@ -215,7 +215,7 @@ export default function AdminDashboardPage() {
         </div>
       </div>
 
-      <div className="mt-8 text-sm text-muted-foreground">Built with Shadcn UI • Modify data fetches to plug Firestore</div>
+
     </div>
   );
 }
