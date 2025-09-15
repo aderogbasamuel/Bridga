@@ -22,23 +22,23 @@ function Footer() {
                   links: [
                       {
                           name: "Car Parts",
-                          url: "/categories/car-parts",
+                          url: "/shop/car-parts",
                       },
                         {
                             name: "Accessories",
-                            url: "/categories/accessories",
+                            url: "/shop/accessories",
                         },
                         {
                             name: "Tyres & Rims",
-                            url: "/categories/tyres-rims",
+                            url: "/shop/tyres-rims",
                         },
                         {
                             name: "Electronics",
-                            url: "/categories/electronics",
+                            url: "/shop/electronics",
                         },
                         {
                             name: "Tools & Equipment",
-                            url: "/categories/tools-equipment",
+                            url: "/shop/tools-equipment",
                         },
                   ]
               },
@@ -47,7 +47,7 @@ function Footer() {
                   links: [
                       {
                           name: "All Products",
-                          url: "/shop/all-products",
+                          url: "/shop/",
                       },
                       {
                           name: "Checkout",
@@ -68,12 +68,12 @@ function Footer() {
                   links: [
                       {
                           name: "Contact",
-                            url: "/help/contact",
+                            url: "/contact",
                       }
                       ,
                       {
                           name:"Privacy Policy",
-                          url: "/help/privacy-policy",
+                          url: "/privacy-policy",
                       }
                   ]
               }

@@ -34,7 +34,7 @@ const handleSubmit = async (e: React.FormEvent) => {
     if (role === "admin") {
       navigate("/admin");
     } else {
-      navigate("/home");
+      navigate("/");
     }
   } catch (err: any) {
     setError(err.message);

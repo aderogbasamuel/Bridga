@@ -18,6 +18,8 @@ import OrdersPage from "./pages/Admin/orders.tsx";
 import ProductDetail from "./components/ProductDetails.tsx";
 import AdminLayout from "./pages/Admin/AdminLayout.tsx";
 import { Toaster } from "react-hot-toast";
+import EditProduct from "./pages/Admin/EditProduct.tsx";
+import PrivacyPolicyPage from "./pages/home/PrivacyPolicy.tsx";
 export default function App() {
   return (
     <>
@@ -39,13 +41,16 @@ export default function App() {
           <Route index element={<AdminDashboard/>}/>
           <Route path="add-product" element={<AddProduct />} />
           <Route path="products" element={<ProductList />} />
-          <Route path="orders" element={<OrdersPage />} />
+            <Route path="orders" element={<OrdersPage />} />
+            <Route path="/admin/edit/:id" element={<EditProduct />} />
+
         </Route>
 
         {/* 🔹 Public + User Routes */}
         <Route element={<AppLayout />}>
           <Route path="/product/:slug" element={<ProductDetail />} />
-          <Route path="/" element={<HomePage />} />
+            <Route path="/" element={<HomePage />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
           <Route path="shop" element={<Shop />} />
             <Route path="/shop/:slug" element={<Shop />} />
             <Route path="cartpage" element={<CartPage/>}/>

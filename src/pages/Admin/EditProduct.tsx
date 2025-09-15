@@ -1,79 +1,143 @@
-import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { db } from "../../services/firebase";
-import { doc, getDoc, updateDoc, serverTimestamp } from "firebase/firestore";
+import { useEffect, useState } from "react"
+import { useParams, useNavigate } from "react-router-dom"
+import { db } from "@/services/firebase"
+import { doc, getDoc, updateDoc } from "firebase/firestore"
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { notify } from "@/services/notify"
 
 const EditProduct = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
+  const { id } = useParams()
+  const navigate = useNavigate()
 
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState<number>(0);
-  const [category, setCategory] = useState("");
-  const [description, setDescription] = useState("");
+  const [form, setForm] = useState<any>({
+    name: "",
+    category: "",
+    price: "",
+    imageUrl: "",
+  })
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchProduct = async () => {
-      if (!id) return;
-      const docRef = doc(db, "products", id);
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        const data = docSnap.data();
-        setName(data.name);
-        setPrice(data.price);
-        setCategory(data.category);
-        setDescription(data.description);
+      try {
+        const productRef = doc(db, "products", id!)
+        const snap = await getDoc(productRef)
+        if (snap.exists()) {
+          setForm(snap.data())
+        } else {
+          notify.error("Product not found")
+          navigate("/admin/products")
+        }
+      } catch (err) {
+        notify.error("Failed to load product")
+      } finally {
+        setLoading(false)
       }
-    };
-    fetchProduct();
-  }, [id]);
+    }
+    fetchProduct()
+  }, [id, navigate])
 
-  const handleUpdate = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!id) return;
-    const docRef = doc(db, "products", id);
-    await updateDoc(docRef, {
-      name,
-      price,
-      category,
-      description,
-      updatedAt: serverTimestamp(),
-    });
-    alert("Product updated!");
-    navigate("/admin/products");
-  };
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value })
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    try {
+      const productRef = doc(db, "products", id!)
+      await updateDoc(productRef, form)
+      notify.success("Product updated successfully")
+      navigate("/admin/products")
+    } catch (err) {
+      notify.error("Failed to update product")
+    }
+  }
+
+  if (loading) return <p className="p-6">Loading...</p>
 
   return (
-    <form onSubmit={handleUpdate} className="p-4 max-w-lg mx-auto">
-      <h2 className="text-xl font-bold mb-4">Edit Product</h2>
-      <input
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        className="border p-2 w-full mb-2"
-      />
-      <input
-        type="number"
-        value={price}
-        onChange={(e) => setPrice(Number(e.target.value))}
-        className="border p-2 w-full mb-2"
-      />
-      <input
-        type="text"
-        value={category}
-        onChange={(e) => setCategory(e.target.value)}
-        className="border p-2 w-full mb-2"
-      />
-      <textarea
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        className="border p-2 w-full mb-2"
-      />
-      <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded">
-        Update
-      </button>
-    </form>
-  );
-};
+    <div className="p-6 max-w-2xl mx-auto">
+      <Card>
+        <CardHeader>
+          <CardTitle>Edit Product</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="grid gap-2">
+              <Label htmlFor="name">Product Name</Label>
+              <Input
+                id="name"
+                name="name"
+                value={form.name}
+                onChange={handleChange}
+                placeholder="Enter product name"
+              />
+            </div>
 
-export default EditProduct;
+            <div className="grid gap-2">
+              <Label htmlFor="category">Category</Label>
+              <Input
+                id="category"
+                name="category"
+                value={form.category}
+                onChange={handleChange}
+                placeholder="Enter category"
+              />
+            </div>
+
+            <div className="grid gap-2">
+              <Label htmlFor="price">Price</Label>
+              <Input
+                id="price"
+                name="price"
+                type="number"
+                value={form.price}
+                onChange={handleChange}
+                placeholder="Enter price"
+              />
+            </div>
+
+            <div className="grid gap-2">
+              <Label htmlFor="imageUrl">Image URL</Label>
+              <Input
+                id="imageUrl"
+                name="imageUrl"
+                value={form.imageUrl}
+                onChange={handleChange}
+                placeholder="https://..."
+              />
+              {form.imageUrl && (
+                <img
+                  src={form.imageUrl}
+                  alt="Preview"
+                  className="mt-2 h-32 w-32 object-cover rounded-md border"
+                />
+              )}
+            </div>
+
+            <div className="flex gap-3">
+              <Button type="submit">Save Changes</Button>
+              <Button
+                variant="outline"
+                type="button"
+                onClick={() => navigate(-1)}
+              >
+                Cancel
+              </Button>
+            </div>
+          </form>
+        </CardContent>
+      </Card>
+    </div>
+  )
+}
+
+export default EditProduct

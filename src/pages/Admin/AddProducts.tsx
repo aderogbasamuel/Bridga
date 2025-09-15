@@ -503,10 +503,13 @@ const AddProducts = () => {
     description: "",
     imageUrl: "",
     category: "",
+
   })
 
   const generateSlug = (name: string) =>
     name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)+/g, "")
+const generateCategorySlug = (category: string) =>
+    category.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)+/g, "")
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -552,6 +555,7 @@ const AddProducts = () => {
         ...product,
         price: parseFloat(product.price),
         slug: generateSlug(product.name),
+        categorySlug: generateCategorySlug(product.category),
         createdAt: serverTimestamp(),
       })
       alert("✅ Product added successfully!")

@@ -22,7 +22,7 @@ const Signup = () => {
 
     try {
       await registerUser(username, email, password);
-      navigate("/home"); // redirect after signup
+      navigate("/"); // redirect after signup
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -104,7 +104,7 @@ const Signup = () => {
                                           value={password}
                       onChange={(e) => setPassword(e.target.value)}
                           />
-                          <button onClick={toggleVisibility}>
+                          <button onClick={toggleVisibility} type="button">
                             {isVisible ? (
                               <Icon icon="lucide:eye-off" width="20" height="20" />
                             ) : (
