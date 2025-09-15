@@ -145,7 +145,7 @@ function CartBar({
               Subtotal:{" "}
               <span>₦{total.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
             </p>
-            <Link to="/cartPage" className="uppercase bg-[#220000] text-white text-[15px] py-3 w-full font-bold text-center">
+            <Link to="/cartPage" className="uppercase bg-[#220000] text-white text-[15px] py-3 w-full font-bold text-center" onClick={() => setCartBar(false)}>
               View Cart
             </Link>
             <button className="uppercase bg-[#220000] text-white text-[15px] py-3 w-full font-bold">

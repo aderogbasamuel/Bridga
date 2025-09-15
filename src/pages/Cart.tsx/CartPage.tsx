@@ -23,11 +23,13 @@ const CartPage = () => {
   const { user } = useAuth();
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState(true);
+const [shippingFees, setShippingFees] = useState(0);
+// Calculate shipping fee based on total
 
-  // Listen to cart items in realtime
-  useEffect(() => {
-    if (!user) return;
-
+// Listen to cart items in realtime
+useEffect(() => {
+  if (!user) return;
+  
     const cartRef = collection(db, "users", user.uid, "cart");
 
     const unsubscribe = onSnapshot(cartRef, (snapshot) => {
@@ -38,17 +40,17 @@ const CartPage = () => {
       setCartItems(items);
       setLoading(false);
     });
-
+    
     return () => unsubscribe();
   }, [user]);
-
+  
   // Update quantity
   const updateQuantity = async (id: string, newQty: number) => {
     if (!user || newQty < 1) return;
     const itemRef = doc(db, "users", user.uid, "cart", id);
     await updateDoc(itemRef, { quantity: newQty });
   };
-
+  
   // Remove from cart
   const removeItem = async (id: string) => {
     if (!user) return;
@@ -61,37 +63,62 @@ const CartPage = () => {
     (sum, item) => sum + item.priceAtAdd * item.quantity,
     0
   );
+  const computedShippingFee = total > 0 && total < 5000 ? 1000 : total >= 5000 ? 0 : 0;
 
   // Right now just log so you can see data before UI
   if (loading) return <p>Loading cart...</p>;
 
   return (
     <PaymentPageLayout title="Shopping Cart">
-      <div className="grid-cols-1 sm:grid-cols-2 px-6 md:px-24">
-        <ul>
+      <div className="grid grid-cols-1 sm:grid-cols-3 px-6 md:px-24 gap-12">
+        <ul className="col-span-2">
+          <li className="flex gap-2 justify-between font-bold border-b pb-2 mb-2 text-[10px] text-[#333] uppercase">
+            <p>Product</p>
+            <p>Total</p>
+          </li>
           {cartItems.map((item) => (
-            <li key={item.id} className="flex gap-2">
+            <li key={item.id} className="flex gap-2 justify-between text-[#333]">
+              <div className="flex gap-2">
               <img src={item.imageUrl} alt={item.name} className="w-20 h-20"/>
-              <div>
+              <div className="flex flex-col gap-1">
                 {/* -  × {item.quantity} */}
-                <p>{item.name}</p>
-                <p>₦{item.priceAtAdd}</p>
+                <p className="capitalize text-[14px]">{item.name}</p>
+                <p className="text-[14px]">₦{Number(item.priceAtAdd).toLocaleString()}</p>
+                <div className="flex">
                 <button
                   onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                  className="border px-2 rounded-md"
                 >
                   −
-                </button>
+                  </button>
+                    <p
+                      className="border px-2 rounded-md"
+                    >{item.quantity}</p>
                 <button
                   onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                  className="border px-2 rounded-md"
                 >
                   +
-                </button>
-                <button onClick={() => removeItem(item.id)}>Remove</button>
+                    </button>
+                  </div>
+                <button onClick={() => removeItem(item.id)} className="underline text-[12px] my-10">Remove Item</button>
+                </div>
               </div>
+              <p>₦{Number(item.quantity * item.priceAtAdd).toLocaleString()}</p>
             </li>
           ))}
         </ul>
-        <p>Total: ₦{total.toLocaleString()}</p>
+        <div>
+          <p className="uppercase font-bold text-[#333] text-[10px] border-b- 1 border-[#333]">Cart Totals</p>
+          <div>
+          <div className="flex justify-between">
+            <p>Shipping Fees </p> <p>₦{computedShippingFee.toLocaleString()}</p>
+          </div>
+      
+          </div>
+          <div className="flex justify-between">
+        <p>Total:</p> ₦{total.toLocaleString()}</div>
+        </div>
       </div>
     </PaymentPageLayout>
   );

@@ -161,13 +161,6 @@
 
 // // export default AddProducts;
 
-
-
-
-
-
-
-
 // import { useState } from "react";
 // import { Input } from "../../components/ui/input";
 // import { Button } from "../../components/ui/button";
@@ -317,7 +310,7 @@
 
 // import { uploadToCloudinary } from "../../services/cloudinarySearvices";
 // import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-// import { db } from "../../services/firebase"; 
+// import { db } from "../../services/firebase";
 // // import { categories } from "../../data/categories"; // 🔥 fixed categories
 // import { categories } from "@/data/cateogries";
 // const AddProducts = () => {
@@ -469,74 +462,80 @@
 
 // export default AddProducts;
 
-import { useState } from "react"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Progress } from "@/components/ui/progress"
+import { useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
 import {
   Card,
   CardHeader,
   CardContent,
   CardTitle,
   CardDescription,
-} from "@/components/ui/card"
+} from "@/components/ui/card";
 import {
   Select,
   SelectTrigger,
   SelectContent,
   SelectItem,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/components/ui/select";
 
-import { uploadToCloudinary } from "@/services/cloudinarySearvices"
-import { collection, addDoc, serverTimestamp } from "firebase/firestore"
-import { db } from "@/services/firebase"
-import { categories } from "@/data/cateogries"
+import { uploadToCloudinary } from "@/services/cloudinarySearvices";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "@/services/firebase";
+import { categories } from "@/data/cateogries";
+import { notify } from "@/services/notify";
 
 const AddProducts = () => {
-  const [file, setFile] = useState<File | null>(null)
-  const [progress, setProgress] = useState(0)
-  const [loading, setLoading] = useState(false)
+  const [file, setFile] = useState<File | null>(null);
+  const [progress, setProgress] = useState(0);
+  const [loading, setLoading] = useState(false);
   const [product, setProduct] = useState({
     name: "",
     price: "",
     description: "",
     imageUrl: "",
     category: "",
-
-  })
+  });
 
   const generateSlug = (name: string) =>
-    name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)+/g, "")
-const generateCategorySlug = (category: string) =>
-    category.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)+/g, "")
+    name
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)+/g, "");
+  const generateCategorySlug = (category: string) =>
+    category
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)+/g, "");
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setProduct({ ...product, [e.target.name]: e.target.value })
-  }
+    setProduct({ ...product, [e.target.name]: e.target.value });
+  };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return
-    setFile(e.target.files[0])
-    setProgress(0)
-  }
+    if (!e.target.files) return;
+    setFile(e.target.files[0]);
+    setProgress(0);
+  };
 
   const handleUpload = async () => {
-    if (!file) return
-    setLoading(true)
+    if (!file) return;
+    setLoading(true);
     try {
-      const url = await uploadToCloudinary(file)
-      setProduct((prev) => ({ ...prev, imageUrl: url }))
-      setProgress(100)
+      const url = await uploadToCloudinary(file);
+      setProduct((prev) => ({ ...prev, imageUrl: url }));
+      setProgress(100);
     } catch (err) {
-      console.error(err)
-      alert("Upload failed")
+      console.error(err);
+      alert("Upload failed");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const handleSubmit = async () => {
     if (
@@ -546,8 +545,8 @@ const generateCategorySlug = (category: string) =>
       !product.imageUrl ||
       !product.category
     ) {
-      alert("Fill all fields, upload an image, and select a category")
-      return
+      notify.error("Fill all fields, upload an image, and select a category");
+      return;
     }
 
     try {
@@ -557,22 +556,22 @@ const generateCategorySlug = (category: string) =>
         slug: generateSlug(product.name),
         categorySlug: generateCategorySlug(product.category),
         createdAt: serverTimestamp(),
-      })
-      alert("✅ Product added successfully!")
+      });
+      notify.success("✅ Product added successfully!");
       setProduct({
         name: "",
         price: "",
         description: "",
         imageUrl: "",
         category: "",
-      })
-      setFile(null)
-      setProgress(0)
+      });
+      setFile(null);
+      setProgress(0);
     } catch (error) {
-      console.error("Error adding product:", error)
-      alert("❌ Failed to add product")
+      console.error("Error adding product:", error);
+      notify.error("❌ Failed to add product");
     }
-  }
+  };
 
   return (
     <div className="p-6">
@@ -669,7 +668,7 @@ const generateCategorySlug = (category: string) =>
         </CardContent>
       </Card>
     </div>
-  )
-}
+  );
+};
 
-export default AddProducts
+export default AddProducts;
