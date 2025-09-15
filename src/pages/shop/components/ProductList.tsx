@@ -35,12 +35,6 @@ function ProductsList({products}: {products: any[]  }) {
           {products.map((product) => (
         <div key={product.id} className="">
           <ProductItemCard
-            image={product.imageUrl}
-            title={product.name}
-            price={product.price}
-            category={product.category}
-                slug={product.slug}
-                id={product.id}
                 product={product}
           />
         </div>
