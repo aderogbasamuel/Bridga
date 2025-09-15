@@ -88,8 +88,8 @@ function Header( {
                 </div>
                 </div>
                 </div>
-                <div className='w-full flex bg-white p-1 pe-3'>
-                <input type="text" placeholder='Search for products, categories' className='text-[15px] p-0 ps-6 placeholder:text-gray-500 border-1 border-gray-200 w-full'/>
+                <div className='w-full flex bg-white'>
+                <input type="text" placeholder='Search for products, categories' className='text-[15px] p-1 ps-6 placeholder:text-gray-500 border-1 border-gray-200 w-full'/>
                 <div className='bg-[#fff] text-black h-stretch aspect-square w-auto flex items-center justify-center px-2'>
                     <Icon icon="tabler:search" height="24"  width="24"/>
                 </div>

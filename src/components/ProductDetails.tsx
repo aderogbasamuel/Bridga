@@ -75,7 +75,7 @@ const { user } = useAuth()
         </div>
       </div>
       <div className="my-6 ">
-        <div className="flex gap-6">
+        <div className="flex gap-6 sm:gap-6 flex-wrap">
           {[
             "Description","Additional Information","Review"
           ].map((select, index) => (

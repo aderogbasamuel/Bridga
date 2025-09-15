@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { db } from "@/services/firebase"
-import { collection, getDocs, deleteDoc, doc } from "firebase/firestore"
+import { collection, getDocs, deleteDoc, doc, updateDoc } from "firebase/firestore"
 import {
   Card,
   CardHeader,
@@ -18,6 +18,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { useNavigate } from "react-router-dom"
+import { notify } from "@/services/notify"
 
 const ProductList = () => {
   const [products, setProducts] = useState<any[]>([])
@@ -38,6 +39,22 @@ const ProductList = () => {
     if (!confirm("Are you sure you want to delete this product?")) return
     await deleteDoc(doc(db, "products", id))
     setProducts(products.filter((p) => p.id !== id))
+    notify.success("Product deleted successfully")
+  }
+
+  const toggleFeatured = async (id: string, current: boolean | undefined) => {
+    try {
+      const productRef = doc(db, "products", id)
+      await updateDoc(productRef, { isFeatured: !current })
+      setProducts((prev) =>
+        prev.map((p) =>
+          p.id === id ? { ...p, isFeatured: !current } : p
+        )
+      )
+      notify.success(`Product ${!current ? "marked as Featured" : "removed from Featured"}`)
+    } catch (err) {
+      notify.error("Failed to update featured status")
+    }
   }
 
   useEffect(() => {
@@ -63,6 +80,7 @@ const ProductList = () => {
                 <TableHead>Name</TableHead>
                 <TableHead>Category</TableHead>
                 <TableHead>Price</TableHead>
+                <TableHead>Featured</TableHead>
                 <TableHead>Actions</TableHead>
               </TableRow>
             </TableHeader>
@@ -78,6 +96,15 @@ const ProductList = () => {
                   <TableCell className="font-medium">{p.name}</TableCell>
                   <TableCell>{p.category}</TableCell>
                   <TableCell>₦{Number(p.price).toLocaleString()}</TableCell>
+                  <TableCell>
+                    <Button
+                      size="sm"
+                      variant={p.isFeatured ? "default" : "outline"}
+                      onClick={() => toggleFeatured(p.id, p.isFeatured)}
+                    >
+                      {p.isFeatured ? "Yes" : "No"}
+                    </Button>
+                  </TableCell>
                   <TableCell className="flex gap-2">
                     <Button
                       variant="outline"

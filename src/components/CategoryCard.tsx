@@ -1,19 +1,23 @@
+import { Link } from 'react-router-dom';
 import image1 from '../assets/c-joyful-heFTscwGDCA-unsplash.jpg'
 import image2 from '../assets/chad-kirchoff-xe-e69j6-Ds-unsplash.jpg'
 import image3 from '../assets/sam-loyd-qy27JnsH9sU-unsplash.jpg'
-function CategoryCard({ image, title, products }: { image: string; title: string; products: number }) {
+function CategoryCard({ image, title, products, slug }: { image: string; title: string; products: number; slug: string }) {
   return (
-    <div className="relative bg-red-900 aspect-[49/50] overflow-hidden">
+    <Link
+      className="relative bg-red-900 aspect-[49/50] overflow-hidden"
+      to={`/shop/${slug}`}
+    >
       <img src={image} alt="" className="w-full h-full object-cover hover:scale-110 transition-normal duration-200" />
       <div className="absolute z-10 bottom-0 left-0 p-4 w-full">
-        <button className="bg-[#f8cdcd] p-4 w-full">
-          <p className="text-black text-[14px] font-bold uppercase">
-            {title}
-          </p>
-          <p className="uppercase text-[11px]">{products} Products</p>
-        </button>
+      <button className="bg-[#f8cdcd] p-4 w-full">
+        <p className="text-black text-[14px] font-bold uppercase">
+        {title}
+        </p>
+        <p className="uppercase text-[11px]">{products} Products</p>
+      </button>
       </div>
-    </div>
+    </Link>
   );
 }
 
