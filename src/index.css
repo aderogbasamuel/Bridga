@@ -142,3 +142,18 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+
+/* .swiper-pagination-bullet::after {
+  content: "";
+  display: block;
+  width: 14px;
+  height: 14px;
+  border-radius: 9999px;
+  background-color: rgb(10, 108, 255);
+  transition: background-color 0.3s;
+  
+}
+.swiper-pagination-bullet-active::after {
+  background-color:rgb(41, 122, 95); 
+} */
