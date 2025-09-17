@@ -14,11 +14,10 @@ import { ChevronLeft, ChevronRight } from "lucide-react"
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/effect-fade';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/autoplay';
+// import 'swiper/css';
+// import 'swiper/css/effect-fade';
+// import 'swiper/css/navigation';
+// import 'swiper/css/pagination';
 
 // import required modules
 import {Autoplay, EffectFade, Navigation, Pagination } from 'swiper/modules';
@@ -29,11 +28,11 @@ function HomePage() {
   <div className="relative">
   <Swiper
     effect={"fade"}
-    modules={[/*Autoplay,*/ Pagination, Navigation, EffectFade]}
-    // autoplay={{
-    //   delay: 3000,
-    //   disableOnInteraction: false,
-    // }}
+    modules={[Autoplay, Pagination, Navigation, EffectFade]}
+    autoplay={{
+      delay: 3000,
+      disableOnInteraction: false,
+    }}
     pagination={{
       clickable: true,
       el: ".custom-pagination",

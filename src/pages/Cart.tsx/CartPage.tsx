@@ -64,14 +64,14 @@ const CartPage = () => {
     0
   );
   const computedShippingFee =
-    total > 0 && total < 5000 ? 1000 : total >= 5000 ? 0 : 0;
+    total > 0 && total < 5000 ? 1000 : total >= 5000 ? 10000 : 0;
 
   // Right now just log so you can see data before UI
   if (loading) return <p>Loading cart...</p>;
 
   return (
     <PaymentPageLayout title="Shopping Cart">
-      <div className="grid grid-cols-1 sm:grid-cols-3 px-6 md:px-24 gap-12">
+      <div className="grid grid-cols-1 sm:grid-cols-3 px-6 md:px-24 gap-12 py-5">
         <ul className="col-span-2">
           <li className="flex gap-2 justify-between font-bold border-b pb-2 mb-2 text-[10px] text-[#333] uppercase">
             <p>Product</p>
@@ -122,10 +122,10 @@ const CartPage = () => {
           ))}
         </ul>
         <div>
-          <p className="uppercase font-bold text-[#555] text-[10px] border-b-1 border-[#555] pb-2">
+          <p className="uppercase font-bold text-[#555] text-[10px] border-b-1 pb-2">
             Cart Totals
           </p>
-          <div className="flex flex-col gap-2 mt-4 text-[#333] text-[14px] border-b-1 border-[#555] pb-4">
+          <div className="flex flex-col gap-2 mt-4 text-[#333] text-[14px] border-b-1 pb-4">
             <div className="flex justify-between">
               <p>Shipping Fees </p>{" "}
               <p>₦{computedShippingFee.toLocaleString()}</p>
@@ -134,9 +134,12 @@ const CartPage = () => {
               <p>Subtotal:</p> ₦{total.toLocaleString()}
             </div>
           </div>
-          <div className="flex justify-between py-4 text-[#333] font-bold text-[17px] border-b-1 border-[#555]">
-            <span className="">Estimated Total</span>     ₦{(total+computedShippingFee).toLocaleString()}
+          <div className="flex justify-between py-4 text-[#333] font-bold text-[17px] border-b-1">
+            <span className="">Estimated Total</span> ₦{(total+computedShippingFee).toLocaleString()}
           </div>
+          <button className="w-full bg-[#333] text-white py-3 mt-6 hover:bg-black transition-colors text-[14px]">
+            Proceed to Checkout
+          </button>
         </div>
       </div>
     </PaymentPageLayout>
