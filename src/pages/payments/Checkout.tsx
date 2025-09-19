@@ -1,128 +1,219 @@
-import PaymentPageLayout from "../../components/PaymentPageLayout";
-import { Link as LInk } from "react-router-dom";
-import { Icon } from "@iconify/react/dist/iconify.js";
+import PaymentPageLayout from "../../components/PaymentPageLayout"
+import { Link } from "react-router-dom"
+import { Icon } from "@iconify/react/dist/iconify.js"
+import { useState, useEffect, type ChangeEvent } from "react"
+import { useNavigate } from "react-router-dom"
+import { db } from "@/services/firebase"
+import { addDoc, collection, serverTimestamp } from "firebase/firestore"
+import { useCart } from "@/hooks/useCart"
+
+interface FormData {
+  name: string
+  email: string
+  phone: string
+  address: string
+}
+
 function CheckoutPage() {
+  const { cart, total, removeFromCart, updateQuantity } = useCart()
+  const navigate = useNavigate()
+
+  const [form, setForm] = useState<FormData>({
+    name: "",
+    email: "",
+    phone: "",
+    address: "",
+  })
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value })
+  }
+
+  // Load Paystack script
+  useEffect(() => {
+    const script = document.createElement("script")
+    script.src = "https://js.paystack.co/v1/inline.js"
+    document.body.appendChild(script)
+  }, [])
+
+  const handlePayment = () => {
+    const handler = (window as any).PaystackPop.setup({
+      key: import.meta.env.VITE_PAYSTACK_PUBLIC_KEY,
+      email: form.email,
+      amount: total * 100, // amount in kobo
+      currency: "NGN",
+      callback: async (response: any) => {
+        console.log("Payment success:", response)
+
+        try {
+          await addDoc(collection(db, "orders"), {
+            userInfo: form,
+            cart,
+            total,
+            transactionRef: response.reference,
+            status: "paid",
+            createdAt: serverTimestamp(),
+          })
+
+          // clear cart if needed
+          navigate("/order-success")
+        } catch (err) {
+          console.error("Error saving order:", err)
+        }
+      },
+      onClose: () => {
+        console.log("Payment closed")
+      },
+    })
+    handler.openIframe()
+  }
+
   return (
     <PaymentPageLayout title="Checkout">
       <div className="p-6 md:p-18 grid grid-cols-1 sm:grid-cols-3 gap-10">
+        {/* FORM */}
         <div className="col-span-2">
-          <form action="" className="">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault()
+              handlePayment()
+            }}
+          >
             <h3 className="text-[17px] text-[#333] font-bold">
               Contact Information
             </h3>
-            <p className="text-[12px] text-[#333]">
-              We'll use this email to send details and updates about your order
-            </p>
+
             <input
-              type="text"
+              type="email"
+              name="email"
+              value={form.email}
+              onChange={handleChange}
               placeholder="Email address"
               className="w-full border border-[#333] p-2 rounded-[5px] mt-4 text-[14px]"
+              required
             />
-            <p className="text-[12px] text-[#333] pt-2">
-              You are currently checking out as a guest
-            </p>
-            <div className="flex items-center mt-3 gap-3">
-              <input type="checkbox" id="create-acct" />
-              <label htmlFor="create-acct" className="text-[12px] font-bold">
-                {" "}
-                Create an accouunt with bridga
-              </label>
-            </div>
+
             <h3 className="text-[17px] text-[#333] font-bold mt-12">
               Shipping address
             </h3>
-            <p className="text-[12px] text-[#333]">
-              Enter the address where you want your order delivered
-            </p>
-            <div className="grid gap-3 grid-cols-2">
-              <input
-                type="text"
-                placeholder="FIrst Name"
-                className="border border-[#333] p-2 rounded-[5px] mt-4 text-[14px]"
-              />
-              <input
-                type="text"
-                placeholder="Last Name"
-                className="border border-[#333] p-2 rounded-[5px] mt-4 text-[14px]"
-              />
-              <input
-                type="text"
-                placeholder="Adress"
-                className="col-span-2 border border-[#333] p-2 rounded-[5px] mt-4 text-[14px]"
-              />
-              <input
-                type="text"
-                placeholder="City"
-                className="col-span-1 border border-[#333] p-2 rounded-[5px] mt-4 text-[14px]"
-              />
-              <select
-                name="state"
-                id="state"
-                className="col-span-1 border border-[#333] p-2 rounded-[5px] mt-4 text-[14px]"
-              >
-                <option value="state">State</option>
-                <option value="lagos">Lagos</option>
-                <option value="abuja">Abuja</option>
-                <option value="rivers">Rivers</option>
-                <option value="kano">Kano</option>
-                          </select>
-                          <input
-                type="text"
-                placeholder="Phone (optional"
-                className="col-span-2 border border-[#333] p-2 rounded-[5px] mt-4 text-[14px]"
-                          />
 
-                         <div className="flex items-center mt-3 gap-3">
-              <input type="checkbox" id="create-acct" checked/>
-              <label htmlFor="create-acct" className="text-[12px] font-bold">
-                {" "}
-                Use same address for billing
-              </label>
-                          </div> 
-                          
-                      </div>
-                      <h3 className="text-[17px] text-[#333] font-bold mt-12">
-              Shipping options
-                      </h3>
-                      <div                 className="border border-[#333] p-2 rounded-[5px] mt-4 text-[14px] gap-3 flex items-center">
-                      <input
-                          type="radio" name="shipping" id="standard" checked />
-                      <label htmlFor="standard" className="text-[14px] font-bold">
-                Lagos
-              </label>
-                      </div>
-                      <div className="flex items-center mt-3 gap-3 pb-12 border-b-1 border-[#555]">
-              <input type="checkbox" id="create-acct" />
-              <label htmlFor="create-acct" className="text-[12px] font-bold">
-                {" "}
-                Add a note to your order (optional)
-              </label>
-                      </div>
-                      <p className="text-[14px] text-[#333] my-12">By proceeding with your purchase you agree to our Terms and Conditions and Privacy Policy</p>
-                      <div className="grid grid-cols-2 items-center mt-3">
-                          <LInk to="/cart" className="flex items-center gap-3"><Icon icon="garden:arrow-left-stroke-16" width="16" height="16" />Return to cart</LInk>
-                          <button className="bg-black p-4 text-white  uppercase font-bold text-[14px] w-full">Place Order</button>
-                      </div>
+            <input
+              type="text"
+              name="name"
+              value={form.name}
+              onChange={handleChange}
+              placeholder="Full Name"
+              className="border border-[#333] p-2 rounded-[5px] mt-4 text-[14px] w-full"
+              required
+            />
+
+            <input
+              type="text"
+              name="address"
+              value={form.address}
+              onChange={handleChange}
+              placeholder="Address"
+              className="border border-[#333] p-2 rounded-[5px] mt-4 text-[14px] w-full"
+              required
+            />
+
+            <input
+              type="text"
+              name="phone"
+              value={form.phone}
+              onChange={handleChange}
+              placeholder="Phone"
+              className="border border-[#333] p-2 rounded-[5px] mt-4 text-[14px] w-full"
+            />
+
+            <p className="text-[14px] text-[#333] my-12">
+              By proceeding with your purchase you agree to our Terms and
+              Conditions and Privacy Policy
+            </p>
+
+            <div className="grid grid-cols-2 items-center mt-3 gap-3">
+              <Link to="/cart" className="flex items-center gap-3">
+                <Icon
+                  icon="garden:arrow-left-stroke-16"
+                  width="16"
+                  height="16"
+                />
+                Return to cart
+              </Link>
+              <button
+                type="submit"
+                className="bg-black p-4 text-white uppercase font-bold text-[14px] w-full"
+              >
+                Place Order
+              </button>
+            </div>
           </form>
         </div>
-        <div className="border ">
-          <p>Order Summary</p>
-          <div>
-          <div>
-            <img src="" alt="" />
-            <div>
-              <p>Black Fluffy Pajajmas</p>
-              <div>#35,000</div>
-              <p>size: 12</p>
-            </div>
-            </div>
-         
-            <p>70,000</p> </div>
-          
+
+        {/* ORDER SUMMARY */}
+        <div className="border p-4">
+          <p className="font-bold mb-3">Order Summary</p>
+          <ul className="space-y-4">
+            {cart.map((item) => (
+              <li
+                key={item.id}
+                className="flex gap-2 justify-between text-[#333]"
+              >
+                <div className="flex gap-2">
+                  <img
+                    src={item.imageUrl}
+                    alt={item.name}
+                    className="w-20 h-20"
+                  />
+                  <div className="flex flex-col gap-1">
+                    <p className="capitalize text-[14px]">{item.name}</p>
+                    <p className="text-[14px]">
+                      ₦{Number(item.price).toLocaleString()}
+                    </p>
+                    <div className="flex items-center">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          updateQuantity(item.id!, item.quantity - 1)
+                        }
+                        className="border px-2 rounded-md"
+                      >
+                        −
+                      </button>
+                      <p className="border px-2 rounded-md">{item.quantity}</p>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          updateQuantity(item.id!, item.quantity + 1)
+                        }
+                        className="border px-2 rounded-md"
+                      >
+                        +
+                      </button>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => removeFromCart(item.id!)}
+                      className="underline text-[12px] my-2"
+                    >
+                      Remove Item
+                    </button>
+                  </div>
+                </div>
+                <p>
+                  ₦{Number(item.quantity * item.price).toLocaleString()}
+                </p>
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-4 font-bold text-right">
+            Total: ₦{total.toLocaleString()}
+          </div>
         </div>
       </div>
     </PaymentPageLayout>
-  );
+  )
 }
 
-export default CheckoutPage;
+export default CheckoutPage
