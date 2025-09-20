@@ -21,7 +21,7 @@ import { Toaster } from "react-hot-toast";
 import EditProduct from "./pages/Admin/EditProduct.tsx";
 import PrivacyPolicyPage from "./pages/home/PrivacyPolicy.tsx";
 import { CartProvider } from "@/context/CartContext"
-import OrderSuccess from "./pages/OrderSuccess.tsx";/
+import OrderSuccess from "./pages/OrderSuccess.tsx";
 import './App.css'
 export default function App() {
   return (
