@@ -30,15 +30,21 @@ export const useCart = () => {
     if (!user) return
     const fetchCart = async () => {
       const snap = await getDocs(collection(db, "users", user.uid, "cart"))
-      const items: CartItem[] = snap.docs.map((doc) => ({
-        id: doc.id,
-        ...(doc.data() as DocumentData),
-      }))
+      const items: CartItem[] = snap.docs.map((doc) => {
+        const data = doc.data() as DocumentData
+        return {
+          id: doc.id,
+          name: data.name,
+          price: data.priceAtAdd,
+          quantity: data.quantity,
+          imageUrl: data.imageUrl,
+        }
+      })
       setCart(items)
     }
     fetchCart()
   }, [user])
-
+console.log(cart)
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
 
   // Add new product

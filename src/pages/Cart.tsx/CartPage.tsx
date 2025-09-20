@@ -9,7 +9,7 @@ import {
   doc,
 } from "firebase/firestore";
 import { useAuth } from "@/context/AuthContext"; // make sure you have user context
-
+import { Link } from "react-router-dom";
 interface CartItem {
   id: string;
   productId: string;
@@ -137,9 +137,9 @@ const CartPage = () => {
           <div className="flex justify-between py-4 text-[#333] font-bold text-[17px] border-b-1">
             <span className="">Estimated Total</span> ₦{(total+computedShippingFee).toLocaleString()}
           </div>
-          <button className="w-full bg-[#333] text-white py-3 mt-6 hover:bg-black transition-colors text-[14px]">
+          <Link to={"/checkout"} className="w-full bg-[#333] text-white p-3 mt-6 hover:bg-black transition-colors text-[14px]">
             Proceed to Checkout
-          </button>
+          </Link>
         </div>
       </div>
     </PaymentPageLayout>

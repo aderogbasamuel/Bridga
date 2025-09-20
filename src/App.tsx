@@ -21,6 +21,7 @@ import { Toaster } from "react-hot-toast";
 import EditProduct from "./pages/Admin/EditProduct.tsx";
 import PrivacyPolicyPage from "./pages/home/PrivacyPolicy.tsx";
 import { CartProvider } from "@/context/CartContext"
+import OrderSuccess from "./pages/OrderSuccess.tsx";/
 import './App.css'
 export default function App() {
   return (
@@ -69,6 +70,14 @@ export default function App() {
             element={
               <ProtectedRoute>
                 <Wishlist />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="order-success"
+            element={
+              <ProtectedRoute>
+                <OrderSuccess />
               </ProtectedRoute>
             }
           />

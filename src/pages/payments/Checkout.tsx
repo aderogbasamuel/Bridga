@@ -30,43 +30,53 @@ function CheckoutPage() {
   }
 
   // Load Paystack script
-  useEffect(() => {
-    const script = document.createElement("script")
-    script.src = "https://js.paystack.co/v1/inline.js"
-    document.body.appendChild(script)
-  }, [])
+  // useEffect(() => {
+  //   const script = document.createElement("script")
+  //   script.src = "https://js.paystack.co/v1/inline.js"
+  //   document.body.appendChild(script)
+  // }, [])
+// Success callback
+const handlePayment = () => {
+  const Paystack = (window as any).PaystackPop;
 
-  const handlePayment = () => {
-    const handler = (window as any).PaystackPop.setup({
-      key: import.meta.env.VITE_PAYSTACK_PUBLIC_KEY,
-      email: form.email,
-      amount: total * 100, // amount in kobo
-      currency: "NGN",
-      callback: async (response: any) => {
-        console.log("Payment success:", response)
-
-        try {
-          await addDoc(collection(db, "orders"), {
-            userInfo: form,
-            cart,
-            total,
-            transactionRef: response.reference,
-            status: "paid",
-            createdAt: serverTimestamp(),
-          })
-
-          // clear cart if needed
-          navigate("/order-success")
-        } catch (err) {
-          console.error("Error saving order:", err)
-        }
-      },
-      onClose: () => {
-        console.log("Payment closed")
-      },
-    })
-    handler.openIframe()
+  if (!Paystack || typeof Paystack.setup !== "function") {
+    console.error("Paystack not loaded properly", Paystack);
+    alert("Payment system not ready. Please refresh and try again.");
+    return;
   }
+
+  const handler = Paystack.setup({
+  key: import.meta.env.VITE_PAYSTACK_PUBLIC_KEY,
+  email: form.email,
+  amount: total * 100,
+  currency: "NGN",
+
+  // make sure callback is a plain function, not async arrow
+  callback: function (response: any) {
+    console.log("Payment success:", response);
+
+    addDoc(collection(db, "orders"), {
+      userInfo: form,
+      cart,
+      total,
+      transactionRef: response.reference,
+      status: "paid",
+      createdAt: serverTimestamp(),
+    })
+      .then(() => navigate("/order-success"))
+      .catch((err) => console.error("Error saving order:", err));
+  },
+
+  onClose: function () {
+    console.log("Payment closed by user");
+  },
+});
+
+
+  handler.openIframe();
+};
+
+
 
   return (
     <PaymentPageLayout title="Checkout">
@@ -132,7 +142,7 @@ function CheckoutPage() {
             </p>
 
             <div className="grid grid-cols-2 items-center mt-3 gap-3">
-              <Link to="/cart" className="flex items-center gap-3">
+              <Link to="/cartPage" className="flex items-center gap-3">
                 <Icon
                   icon="garden:arrow-left-stroke-16"
                   width="16"

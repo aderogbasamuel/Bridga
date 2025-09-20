@@ -71,7 +71,7 @@ function ProductItemCard({ product }: { product: any }) {
           {product.name}
         </p>
         <p className="text-gray-800 text-[16px] font-bold pt-2 pb-1">
-          ₦{product.price}
+          ₦{Number(product.price).toLocaleString()}
         </p>
 
         <div className="flex gap-2">
