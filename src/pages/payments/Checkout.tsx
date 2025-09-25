@@ -53,7 +53,7 @@ const handlePayment = () => {
 
   // make sure callback is a plain function, not async arrow
   callback: function (response: any) {
-    console.log("Payment success:", response);
+    // console.log("Payment success:", response);
 
     addDoc(collection(db, "orders"), {
       userInfo: form,
@@ -68,7 +68,7 @@ const handlePayment = () => {
   },
 
   onClose: function () {
-    console.log("Payment closed by user");
+    // console.log("Payment closed by user");
   },
 });
 

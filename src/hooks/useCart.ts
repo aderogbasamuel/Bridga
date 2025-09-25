@@ -44,7 +44,7 @@ export const useCart = () => {
     }
     fetchCart()
   }, [user])
-console.log(cart)
+// console.log(cart)
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
 
   // Add new product

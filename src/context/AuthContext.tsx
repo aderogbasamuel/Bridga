@@ -30,14 +30,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
 useEffect(() => {
   const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
-    console.log("🔹 Auth state changed:", firebaseUser);
+    // console.log("🔹 Auth state changed:", firebaseUser);
 
     if (firebaseUser) {
       setUser(firebaseUser);
 
       try {
         const userDoc = await getDoc(doc(db, "users", firebaseUser.uid));
-        console.log("🔹 User doc:", userDoc.exists(), userDoc.data());
+        // console.log("🔹 User doc:", userDoc.exists(), userDoc.data());
 
         if (userDoc.exists()) {
           setRole(userDoc.data().role || "user");

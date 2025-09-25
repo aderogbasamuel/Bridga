@@ -11,7 +11,7 @@ function ShopPage() {
   const [products, setProducts] = useState<any[]>([])
 
   const category = categories.find((c) => c.slug === slug)
-  console.log(category)
+  // console.log(category)
   useEffect(() => {
     const fetchProducts = async () => {
       let q
