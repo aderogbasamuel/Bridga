@@ -80,9 +80,9 @@ const handlePayment = () => {
 
   return (
     <PaymentPageLayout title="Checkout">
-      <div className="p-6 md:p-18 grid grid-cols-1 sm:grid-cols-3 gap-10">
+      <div className="p-6 md:p-18 grid grid-cols-1 sm:grid-cols-3 gap-1 w-full">
         {/* FORM */}
-        <div className="col-span-2">
+        <div className="w-full sm:col-span-2">
           <form
             onSubmit={(e) => {
               e.preventDefault()
@@ -161,7 +161,7 @@ const handlePayment = () => {
         </div>
 
         {/* ORDER SUMMARY */}
-        <div className="border p-4">
+        <div className="border p-4 w-full">
           <p className="font-bold mb-3">Order Summary</p>
           <ul className="space-y-4">
             {cart.map((item) => (

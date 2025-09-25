@@ -20,72 +20,71 @@ import AdminLayout from "./pages/Admin/AdminLayout.tsx";
 import { Toaster } from "react-hot-toast";
 import EditProduct from "./pages/Admin/EditProduct.tsx";
 import PrivacyPolicyPage from "./pages/home/PrivacyPolicy.tsx";
-import { CartProvider } from "@/context/CartContext"
+// import { CartProvider } from "@/context/CartContext";
 import OrderSuccess from "./pages/OrderSuccess.tsx";
-import './App.css'
+import "./App.css";
 export default function App() {
   return (
     <>
-    <BrowserRouter>
-      <Routes>
-        {/* <Route path="/" element={<Navigate to="/home" replace />} /> */}
-        <Route path="login" element={<Login />} />
-        <Route path="signup" element={<Signup />} />
+      <BrowserRouter>
+        <Routes>
+          {/* <Route path="/" element={<Navigate to="/home" replace />} /> */}
+          <Route path="login" element={<Login />} />
+          <Route path="signup" element={<Signup />} />
 
-        {/* 🔹 Admin Routes */}
-        <Route
-          path="/admin"
-          element={
-            <ProtectedRoute role="admin">
-              <AdminLayout />
-            </ProtectedRoute>
-          }
-        >
-          <Route index element={<AdminDashboard/>}/>
-          <Route path="add-product" element={<AddProduct />} />
-          <Route path="products" element={<ProductList />} />
+          {/* 🔹 Admin Routes */}
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute role="admin">
+                <AdminLayout />
+              </ProtectedRoute>
+            }
+          >
+            <Route index element={<AdminDashboard />} />
+            <Route path="add-product" element={<AddProduct />} />
+            <Route path="products" element={<ProductList />} />
             <Route path="orders" element={<OrdersPage />} />
             <Route path="/admin/edit/:id" element={<EditProduct />} />
+          </Route>
 
-        </Route>
-
-        {/* 🔹 Public + User Routes */}
-        <Route element={<AppLayout />}>
-          <Route path="/product/:slug" element={<ProductDetail />} />
+          {/* 🔹 Public + User Routes */}
+          <Route element={<AppLayout />}>
+            <Route path="/product/:slug" element={<ProductDetail />} />
             <Route path="/" element={<HomePage />} />
             <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
-          <Route path="shop" element={<Shop />} />
+            <Route path="shop" element={<Shop />} />
             <Route path="/shop/:slug" element={<Shop />} />
-            <Route path="cartpage" element={<CartPage/>}/>
-          <Route
-            path="checkout"
-            element={
-              <ProtectedRoute>
-                <CheckoutPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="wishlist"
-            element={
-              <ProtectedRoute>
-                <Wishlist />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="order-success"
-            element={
-              <ProtectedRoute>
-                <OrderSuccess />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="contact" element={<ContactPage />} />
-        </Route>
-      </Routes>
+            <Route path="cartpage" element={<CartPage />} />
+            <Route
+              path="checkout"
+              element={
+                <ProtectedRoute>
+                  <CheckoutPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="wishlist"
+              element={
+                <ProtectedRoute>
+                  <Wishlist />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="order-success"
+              element={
+                <ProtectedRoute>
+                  <OrderSuccess />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="contact" element={<ContactPage />} />
+          </Route>
+        </Routes>
       </BrowserRouter>
- <Toaster
+      <Toaster
         position="top-right"
         toastOptions={{
           // default options

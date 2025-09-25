@@ -1,5 +1,5 @@
 import PageLayout from "../../components/PageLayout";
-import image from "../../assets/c-joyful-heFTscwGDCA-unsplash.jpg";
+import image from "../../assets/c-joyful-heFTscwGDCA-unsplash.webp";
 import { Icon } from "@iconify/react";
 import { useWishlist } from "../../hooks/useWishlist";
 function Wishlist() {
@@ -43,7 +43,9 @@ function Wishlist() {
                   </td>
                   <td>{product.price}</td>
                   <td className="text-green-400">In stock</td>
-                  <td><button>Select Options</button></td>
+                  <td>
+                    <button>Select Options</button>
+                  </td>
                 </tr>
               ))}
             </tbody>

@@ -1,11 +1,10 @@
-import image1 from "../../../assets/c-joyful-heFTscwGDCA-unsplash.jpg";
-import image2 from "../../../assets/chad-kirchoff-xe-e69j6-Ds-unsplash.jpg";
-import image3 from "../../../assets/sam-loyd-qy27JnsH9sU-unsplash.jpg";
+import image1 from "../../../assets/c-joyful-heFTscwGDCA-unsplash.webp";
+import image2 from "../../../assets/chad-kirchoff-xe-e69j6-Ds-unsplash.webp";
+import image3 from "../../../assets/sam-loyd-qy27JnsH9sU-unsplash.webp";
 import ProductItemCard from "../../../components/ProductItemCard";
-function ProductsList({products}: {products: any[]  }) {
-    return (
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          
+function ProductsList({ products }: { products: any[] }) {
+  return (
+    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       {/* [
         {
           image: image1,
@@ -32,11 +31,9 @@ function ProductsList({products}: {products: any[]  }) {
           category: "Electronics",
         },
         ] */}
-          {products.map((product) => (
+      {products.map((product) => (
         <div key={product.id} className="">
-          <ProductItemCard
-                product={product}
-          />
+          <ProductItemCard product={product} />
         </div>
       ))}
     </div>
