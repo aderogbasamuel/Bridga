@@ -1,8 +1,8 @@
 import CategoryCard from "@/components/CategoryCard";
 import carparts from "../../../assets/shunya-koide-1emWndlDHs0-unsplash.jpg";
 import gadgets from "../../../assets/gio-rosado-9NrhZlZLsl0-unsplash.jpg";
-import electronics from "../../../assets/christopher-john-eLbCls7vc6A-unsplash.webp";
-import tyresrims from "../../../assets/alvis-taurens-BQOLjcESMl0-unsplash.webp";
+import electronics from "../../../assets/freestocks-_3Q3tsJ01nc-unsplash.jpg";
+import tyresrims from "../../../assets/jakub-zerdzicki-fkJFL1P3BGQ-unsplash.jpg";
 
 function FeaturedCategories() {
   return (
