@@ -1,7 +1,7 @@
 import { useRef } from "react";
-import image1 from "../../../assets/c-joyful-heFTscwGDCA-unsplash.webp";
-import image4 from "../../../assets/markus-spiske-6rF_Du5cn1Y-unsplash.webp";
-import image5 from "../../../assets/samuele-errico-piccarini-MyjVReZ5GLQ-unsplash.webp";
+import image1 from "../../../assets/gio-rosado-9NrhZlZLsl0-unsplash.jpg";
+import image4 from "../../../assets/bruno-kelzer-LvySG1hvuzI-unsplash.jpg";
+import image5 from "../../../assets/vladimira-osadnikova-U3aZH0S1YFw-unsplash.jpg";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { EffectFade, Navigation, Pagination } from "swiper/modules";
