@@ -83,7 +83,7 @@ function Header({
           </div>
         </div>
       </div>
-      <div className="flex md:hidden flex-col gap-3 p-4 py-2 bg-[#220000]">
+      <div className="flex md:hidden flex-col gap-3 p-4 py-2 bg-[#2B4162]">
         <div className="flex items-center justify-between">
           <div className="h-[45px] flex items-center">
             <Icon
@@ -93,7 +93,7 @@ function Header({
               color="white"
               onClick={() => setNavbar(true)}
             />
-            <img src={logo} alt="Bridga logo" className="h-full" />
+            <Banner/>
           </div>
 
           <div className="flex gap-3 items-center">

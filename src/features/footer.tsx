@@ -1,11 +1,13 @@
 import logo from "../assets/BRIDGA.png";
 import { Icon } from "@iconify/react";
+import Banner from "../components/banner";
 function Footer() {
   return (
     <div>
-    <div className="bg-[#3d0d0d] text-white grid grid-cols-1 md:grid-cols-4 p-6 md:p-18 gap-12">
+    <div className="bg-[#2B4162] text-white grid grid-cols-1 md:grid-cols-4 p-6 md:p-18 gap-12">
       <div className="flex flex-col gap-4">
-        <img src={logo} alt="Bridga logo" className="w-[300px] md:w-full pb-8" />
+        {/* <img src={logo} alt="Bridga logo" className="w-[300px] md:w-full pb-8" /> */}
+        <Banner/>
         <div className="flex gap-3 text-[15px] items-center">
           <Icon icon="ion:call-outline" width="18" height="18" />
           <p> +23423456789</p>
@@ -21,24 +23,24 @@ function Footer() {
                   title: "categories",
                   links: [
                       {
-                          name: "Car Parts",
-                          url: "/shop/car-parts",
+                          name: "Academics",
+                          url: "/shop/Academics",
                       },
                         {
-                            name: "Accessories",
-                            url: "/shop/accessories",
+                            name: "Gadgets",
+                            url: "/shop/Gadgets",
                         },
                         {
-                            name: "Tyres & Rims",
-                            url: "/shop/tyres-rims",
+                            name: "Fashion",
+                            url: "/shop/Fashion",
                         },
                         {
-                            name: "Electronics",
-                            url: "/shop/electronics",
+                            name: "Hostel",
+                            url: "/shop/Hostel",
                         },
                         {
-                            name: "Tools & Equipment",
-                            url: "/shop/tools-equipment",
+                            name: "Beauty",
+                            url: "/shop/Beauty",
                         },
                   ]
               },
