@@ -14,25 +14,25 @@ function FeaturedCategories() {
         {[
           {
             image: carparts,
-            title: "Car Parts",
+            title: "Books &  Materials",
             slug: "car-parts",
             products: 14,
           },
           {
             image: accessories,
-            title: "Accessories",
+            title: "Electronics & Gadgets",
             slug: "accessories",
             products: 18,
           },
           {
             image: tyresrims,
-            title: "Tyres & Rims",
+            title: "Fashion & Accessories",
             products: 22,
             slug: "tyres-rims",
           },
           {
             image: electronics,
-            title: "Electronics",
+            title: "Living Essentials",
             slug: "electronics",
 
             products: 10,

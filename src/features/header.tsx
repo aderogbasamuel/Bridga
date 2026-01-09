@@ -8,7 +8,7 @@ import { useWishlistCount } from "../hooks/wishListCount";
 import { useCartCount } from "../hooks/cartCount";
 import { useAuth } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
-
+import Banner from "../components/banner";
 function Header({
   setNavbar,
   setCartBar,
@@ -32,8 +32,17 @@ function Header({
   return (
     <div>
       <div className="hidden md:flex gap-6 p-4 px-18 h-[100px] items-center justify-between border-1 border-b-gray-300">
-        <div className="h-full">
-          <img src={logo} alt="Bridga logo" className="h-full" />
+        <div className="h-full " >
+          {/* <div className="flex bg-[#0B6E4F] gap-3 items-center h-full p-3">
+              <div className="text-2xl rounded-full bg-white text-[#721817] w-12 h-12 flex items-center justify-center">
+                Es
+              </div>
+              <div className="text-white">
+                <p className="font-bold">Escrow</p>
+                <p className="text-[10px] font-light">A trusted marketplace built for university students.</p>
+              </div>
+          </div> */}
+          <Banner/>
         </div>
         <div className="w-1/2 flex">
           <input
