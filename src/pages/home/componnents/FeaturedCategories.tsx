@@ -1,8 +1,8 @@
 import CategoryCard from "@/components/CategoryCard";
-import carparts from "../../../assets/c-joyful-heFTscwGDCA-unsplash.webp";
-import electronics from "../../../assets/sam-loyd-qy27JnsH9sU-unsplash.webp";
-import tyresrims from "../../../assets/christopher-john-eLbCls7vc6A-unsplash.webp";
-import accessories from "../../../assets/alvis-taurens-BQOLjcESMl0-unsplash.webp";
+import carparts from "../../../assets/shunya-koide-1emWndlDHs0-unsplash.jpg";
+import gadgets from "../../../assets/gio-rosado-9NrhZlZLsl0-unsplash.jpg";
+import electronics from "../../../assets/christopher-john-eLbCls7vc6A-unsplash.webp";
+import tyresrims from "../../../assets/alvis-taurens-BQOLjcESMl0-unsplash.webp";
 
 function FeaturedCategories() {
   return (
@@ -19,9 +19,9 @@ function FeaturedCategories() {
             products: 14,
           },
           {
-            image: accessories,
+            image: gadgets,
             title: "Electronics & Gadgets",
-            slug: "accessories",
+            slug: "Gadgets",
             products: 18,
           },
           {
