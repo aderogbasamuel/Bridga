@@ -30,7 +30,7 @@ function ShopPage() {
 
   return (
     <PageLayout title="Shop" subTitle={category ? category.name : ""}>
-      <div className="px-4 sm:px-4 md:px-24 py-10">
+      <div className="px-4 sm:px-4 md:px-12 py-10">
         <div className="text-[#555]">
           <p className="text-[12px]">
             Showing 1–{products.length} Products
