@@ -63,7 +63,7 @@ function Wishlist() {
                     </div>
 
                     {/* Product Info - Horizontal Layout */}
-                    <div className="flex flex-1 items-center justify-between">
+                    <div className="flex flex-col sm:flex-row flex-1 items-center justify-between gap-4">
                       <div className="flex-1 min-w-0">
                         <h3 className="font-medium text-gray-900 text-lg line-clamp-2 mb-1">
                           {product.name}
@@ -73,7 +73,7 @@ function Wishlist() {
                             <Icon icon="solar:check-circle-linear" width="12" height="12" className="mr-1" />
                             In Stock
                           </span>
-                          <span className="text-xl font-bold text-gray-900">
+                          <span className="text-sm font-bold text-gray-900">
                             ₦{Number(product.price).toLocaleString()}
                           </span>
                         </div>
@@ -81,7 +81,7 @@ function Wishlist() {
                       
                       {/* Action Button */}
                       <div className="flex-shrink-0 ml-6">
-                        <button className="bg-gray-900 hover:bg-gray-800 text-white font-medium px-6 py-3 rounded-lg text-sm transition-colors duration-200 whitespace-nowrap">
+                        <button className="bg-gray-900 hover:bg-gray-800 text-white font-medium px-6 py-2 sm:py-3 rounded-lg text-sm transition-colors duration-200 whitespace-nowrap">
                           View Details
                         </button>
                       </div>
