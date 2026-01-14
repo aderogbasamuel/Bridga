@@ -25,7 +25,7 @@ function ProductCard({ product }: { product: any }) {
       </div>
       <div className="flex flex-col">
         <p className="text-[12px] text-gray-500 uppercase">{product.category}</p>
-        <p className="text-[14px] text-gray-700 capitalize">{product.name}</p>
+        <p className="text-[14px] text-gray-700 capitalize font-medium">{product.name}</p>
         <p className="text-[12px] font-bold pt-2 pb-1 text-[#fa9f42]">₦{product.price}</p>
         <div className="flex gap-2">
           <div className="uppercase bg-[#3d0d0d] text-white p-2 w-fit font-bold text-[14px]">
