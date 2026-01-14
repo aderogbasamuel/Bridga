@@ -106,7 +106,7 @@ function ProductItemCard({ product }: { product: any }) {
               text-white 
           "><div className="flex items-center justify-center gap-2">
               <Icon icon="solar:cart-plus-linear" width="22" height="22" />
-              <p className="text-sm font-medium">Add to Cart</p>
+              <p className="hidden sm:block text-sm font-medium">Add to Cart</p>
               </div>
             </button>
             <Link
