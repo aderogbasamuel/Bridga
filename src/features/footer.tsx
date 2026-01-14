@@ -98,7 +98,7 @@ function Footer() {
     )}
 
           </div>
-          <footer className="bg-[#220000] py-6 px-6  md:px-18 text-white text-center ">Bridga &copy; 2025 All Rights Reserved. Developed by <a href="Wajucreative.com">Waju Creative</a></footer>
+          <footer className="bg-[#223353] py-6 px-6  md:px-18 text-white text-center ">Escrow &copy; 2026 All Rights Reserved.</footer>
           </div>
   );
 }

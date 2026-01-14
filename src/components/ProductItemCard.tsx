@@ -91,11 +91,12 @@ function ProductItemCard({ product }: { product: any }) {
           {product.name}
         </p>
 
+          {/* Actions */}
+          <div className="h-full flex flex-col justify-end items-end w-full">
         <p className="text-[#2B4162] text-[15px] font-bold pt-2">
           ₦{Number(product.price).toLocaleString()}
         </p>
-          {/* Actions */}
-          <div className="h-full flex items-end w-full">
+
           <div className="flex gap-2 pt-2 w-full">
 
             <button className="
