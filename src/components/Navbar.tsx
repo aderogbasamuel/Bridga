@@ -27,7 +27,7 @@ function Nvabar({
             navbar ? "translate-x-0" : "-translate-x-full"
           }`}
         >
-          <div className="bg-[#220000] text-center py-3 px-2">
+          <div className="bg-[#223353] text-center py-3 px-2">
             <h2 className="capitalize text-white font-semibold text-[18px] flex items-center text-center relative justify-between">
               <p>
                 <Link to="/login">Login</Link>/<Link to="/signup">Signup</Link>

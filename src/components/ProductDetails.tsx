@@ -68,7 +68,7 @@ useEffect(() => {
   if (!product) return <p className="p-10">Loading...</p>;
 
   return (
-    <div className="max-w-7xl mx-auto px-6 sm:px-12 py-10">
+    <div className="max-w-7xl mx-auto px-4 sm:px-12 py-10">
       {/* MAIN PRODUCT */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
         {/* IMAGE */}
@@ -184,14 +184,9 @@ useEffect(() => {
         </h2>
 
         {/* <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6"> */}
-          <div className="flex gap-6 overflow-x-auto 
-      pb-4
-      snap-x snap-mandatory
-      scrollbar-hide">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
   {relatedProducts.map((item) => (
-    <div className="w-[300px]">
     <ProductItemCard key={item.id} product={item} />
-    </div>
   ))}
 {/* </div> */}
 

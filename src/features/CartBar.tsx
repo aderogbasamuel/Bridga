@@ -87,7 +87,7 @@ function CartBar({
         }`}
       >
         {/* Header */}
-        <div className="bg-[#220000] text-center py-3 px-2">
+        <div className="bg-[#223353] text-center py-3 px-2">
           <h2 className="uppercase text-white font-bold text-[18px] flex items-center justify-center relative">
             <button onClick={() => setCartBar(false)}>
               <Icon
@@ -145,10 +145,10 @@ function CartBar({
               Subtotal:{" "}
               <span>₦{total.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
             </p>
-            <Link to="/cartPage" className="uppercase bg-[#220000] text-white text-[15px] py-3 w-full font-bold text-center" onClick={() => setCartBar(false)}>
+            <Link to="/cartPage" className="uppercase bg-[#223353] text-white text-[15px] py-3 w-full font-bold text-center" onClick={() => setCartBar(false)}>
               View Cart
             </Link>
-            <button className="uppercase bg-[#220000] text-white text-[15px] py-3 w-full font-bold">
+            <button className="uppercase bg-[#223353] text-white text-[15px] py-3 w-full font-bold">
               Checkout
             </button>
           </div>

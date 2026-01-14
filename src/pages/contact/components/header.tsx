@@ -5,15 +5,15 @@ function ContactHeader() {
             {[
                 {
                     iconName: "weui:location-filled",
-                    text: "6 Oluwanifemi Faseru Close, Unity Homes Thomas Estate, Ajah, Lagos"
+                    text: "university of lagos, akoka, yaba, lagos"
                 },
                 {
                     iconName: "ri:phone-fill",
-                    text: "+234 901 234 5678"
+                    text: "+234 704 613 2755"
                 },
                 {
                     iconName: "fa-regular:envelope-open",
-                    text: "info@bridga.com"
+                    text: "info@escrow.com"
                 }].map((item, index) => (
                     <div key={index} className='flex items-center gap-2 flex-col p-4 text-center'>
                         <Icon icon={item.iconName} width="50" height="50" />

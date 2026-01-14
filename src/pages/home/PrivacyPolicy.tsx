@@ -8,7 +8,7 @@ function PrivacyPolicyPage() {
         <section>
           <h2 className="text-2xl font-semibold mb-3">Introduction</h2>
           <p>
-            At <span className="font-medium">Bridga</span>, your
+            At <span className="font-medium">Escrow</span>, your
             privacy is important to us. This Privacy Policy explains how we
             collect, use, and protect your information when you use our website
             and services.
@@ -71,7 +71,7 @@ function PrivacyPolicyPage() {
           <p>
             You have the right to access, correct, or delete your personal data.
             If you wish to exercise these rights, please contact us at{" "}
-            <span className="font-medium">support@bridga.com</span>.
+            <span className="font-medium">support@escrow.com</span>.
           </p>
         </section>
 
@@ -88,7 +88,7 @@ function PrivacyPolicyPage() {
           <p>
             If you have any questions or concerns about this Privacy Policy,
             please contact us at{" "}
-            <span className="font-medium">support@[yourcompany].com</span>.
+            <span className="font-medium">support@escrow.com</span>.
           </p>
         </section>
       </div>

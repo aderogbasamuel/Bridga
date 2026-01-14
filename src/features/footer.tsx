@@ -10,11 +10,11 @@ function Footer() {
         <Banner/>
         <div className="flex gap-3 text-[15px] items-center">
           <Icon icon="ion:call-outline" width="18" height="18" />
-          <p> +23423456789</p>
+          <p> +234706132755</p>
               </div>
               <div className="flex gap-3 text-[15px] items-center">
               <Icon icon="material-symbols-light:mail-outline-rounded" width="18" height="18" />
-          <p> hello@bridga.com</p>
+          <p> hello@escrow.com</p>
               </div>
         
           </div>

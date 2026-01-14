@@ -74,7 +74,8 @@ const Signup = () => {
                     <div className="bg-black text-white p-8 flex flex-col w-full sm:w-[40%]">
                       <h2 className="font-bold text-[26px]">Signup</h2>
                       <p className="text-[14px] mt-3">
-                        Join Bridga to manage your projects, collaborate with your team, and unlock exclusive features.
+                        Join Escrow student marketplace today and start buying
+                        and selling with ease!
                       </p>
                     </div>
             
